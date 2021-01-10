@@ -1,0 +1,13 @@
+{
+  "users": [
+    {
+      "id": "nara",
+      "pw": "nara"
+    },
+    {
+      "id": "dkj",
+      "pw": "dkj",
+      "nickname": "gosu"
+    }
+  ]
+}
