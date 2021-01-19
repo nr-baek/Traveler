@@ -2,12 +2,18 @@
   "users": [
     {
       "id": "nara",
-      "pw": "nara"
-    },
+      "pw": "1234",
+      "nickname": "nara"
+    }
+  ],
+  "posts": [
     {
-      "id": "dkj",
-      "pw": "dkj",
-      "nickname": "gosu"
+      "id": "nara",
+      "title": "한슬이와 나라의 부산 여행",
+      "type": "친구",
+      "startDate": "2021-01-19",
+      "days": "2",
+      "desc": ["1일차 해운대", "2일차 수변 공원"]
     }
   ]
 }
