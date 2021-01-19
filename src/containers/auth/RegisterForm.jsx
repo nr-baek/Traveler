@@ -77,3 +77,4 @@ const RegisterForm = ({ history }) => {
 };
 
 export default withRouter(RegisterForm);
+

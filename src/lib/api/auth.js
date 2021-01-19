@@ -15,3 +15,4 @@ export const register = ({ id, password, nickname }) =>
     password,
     nickname,
   });
+

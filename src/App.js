@@ -2,6 +2,7 @@ import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import HomePage from "./pages/HomePage";
+import PosterPage from "./pages/PosterPage";
 
 import { Route, Switch } from "react-router-dom";
 import Error from "./pages/Error";
@@ -36,6 +37,7 @@ function App() {
           <Switch>
             <Route component={LoginPage} path="/login" />
             <Route component={RegisterPage} path="/register" />
+            <Route component={PosterPage} path="/poster" />
             <Route component={MyPage} path="/mypage" />
             <Route component={HomePage} path={["/"]} exact />
             <Route component={NotFoundPage} />

@@ -101,3 +101,4 @@ export function createLoginSaga(type) {
     yield put(finishLoading(type));
   };
 }
+
