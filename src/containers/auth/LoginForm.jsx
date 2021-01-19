@@ -28,7 +28,6 @@ const LoginForm = ({ history }) => {
   const onSubmit = (e) => {
     e.preventDefault();
     const { id, password } = form;
-    console.log(id, password);
     if ([id, password].includes('')) {
       setError('빈 칸을 모두 입력하세요.');
       return;
@@ -42,15 +41,12 @@ const LoginForm = ({ history }) => {
 
   useEffect(() => {
     if (loginCheck === false) {
-      console.log('login 오류 발생');
       setError('존재하지 않는 회원입니다.');
       return;
     }
-    if (token && loginCheck) {
-      console.log('로그인 성공');
+    else if (token && loginCheck === true) {
       try {
         sessionStorage.setItem('token', JSON.stringify(form.id));
-
         history.push('/');
       } catch (e) {
         console.log('sessionStorage is not working');

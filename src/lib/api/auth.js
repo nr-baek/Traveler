@@ -1,4 +1,4 @@
-import client from './client';
+import client from "./client";
 
 // 로그인
 export const login = ({ id, password }) =>
@@ -9,13 +9,9 @@ export const checkRegister = (id) =>
   client.get(`http://localhost:4000/users?id=${id}`);
 
 // 회원가입
-export const register = ({ nickname, id, password }) =>
-  client.post('http://localhost:4000/users/', {
-    nickname,
+export const register = ({ id, password, nickname }) =>
+  client.post("http://localhost:4000/users/", {
     id,
     password,
+    nickname,
   });
-
-// // 로그인 상태 확인
-// export const check = (token) =>
-//   client.get(`http://localhost:4000/users?token=${token}`); 필요없음
