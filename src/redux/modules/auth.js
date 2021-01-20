@@ -1,23 +1,23 @@
-import { createAction, handleActions } from 'redux-actions';
-import produce from 'immer';
+import { createAction, handleActions } from "redux-actions";
+import produce from "immer";
 import {
   createRequestActionTypes,
   createLoginSaga,
   createRegisterSaga,
-} from '../../lib/createRequestSaga';
-import { takeLatest } from 'redux-saga/effects';
+} from "../../lib/createRequestSaga";
+import { takeLatest } from "redux-saga/effects";
 
 // 초기 상태
 const initialState = {
   register: {
-    id: '',
-    nickname: '',
-    password: '',
-    passwordConfirm: '',
+    id: "",
+    nickname: "",
+    password: "",
+    passwordConfirm: "",
   },
   login: {
-    id: '',
-    password: '',
+    id: "",
+    password: "",
   },
   token: null,
   registerCheck: null,
@@ -25,17 +25,15 @@ const initialState = {
 };
 
 // 액션 타입 정의
-const CHANGE_FIELD = 'auth/CHANGE_FIELD';
-const INITIALIZE_FORM = 'auth/INITIALIZE_FORM';
+const CHANGE_FIELD = "auth/CHANGE_FIELD";
+const INITIALIZE_FORM = "auth/INITIALIZE_FORM";
 
 // saga 액션 타입 정의
-export const [
-  REGISTER,
-  REGISTER_SUCCESS,
-  REGISTER_FAILURE,
-] = createRequestActionTypes('auth/REGISTER');
+const [REGISTER, REGISTER_SUCCESS, REGISTER_FAILURE] = createRequestActionTypes(
+  "auth/REGISTER"
+);
 const [LOGIN, LOGIN_SUCCESS, LOGIN_FAILURE] = createRequestActionTypes(
-  'auth/LOGIN',
+  "auth/LOGIN"
 );
 
 // 액션 생성 함수
@@ -45,7 +43,7 @@ export const changeField = createAction(
     form, // register, login
     key, // username, password, passwordConfirm
     value, // 실제 바꾸려는 값
-  }),
+  })
 );
 
 export const initializeForm = createAction(INITIALIZE_FORM);
@@ -61,7 +59,7 @@ export const register = createAction(
     id,
     password,
     nickname,
-  }),
+  })
 );
 
 // 사가 생성
@@ -107,7 +105,7 @@ const auth = handleActions(
       loginCheck,
     }),
   },
-  initialState,
+  initialState
 );
 
 export default auth;

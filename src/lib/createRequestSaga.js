@@ -15,6 +15,7 @@ export function createRegisterSaga(type) {
   const FAILURE = `${type}_FAILURE`;
 
   return function* (action) {
+    console.log(action);
     yield put(startLoading(type));
 
     try {
@@ -81,7 +82,8 @@ export function createLoginSaga(type) {
   return function* (action) {
     yield put(startLoading(type));
     try {
-      const response = yield call(authAPI.login, { ...action.payload });
+      const response = yield call(authAPI.login, action.payload);
+      console.log(response.data[0].id);
       sessionStorage.setItem("token", response.data[0].id);
 
       yield put({
@@ -133,3 +135,4 @@ export function createPostLoadingSaga(type) {
     yield put(finishLoading(type));
   };
 }
+
