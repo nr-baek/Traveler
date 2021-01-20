@@ -1,12 +1,10 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import MyInfoContainer from '../containers/info/MyInfoContainer';
 
 const MyPage = () => {
-  const token = useSelector((state) => state.auth.token);
+  
   return (
-    <div>
-      마이 페이지
-    </div>
+    <MyInfoContainer />
   );
 };
 
