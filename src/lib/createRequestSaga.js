@@ -63,11 +63,6 @@ export function createRegisterSaga(type) {
           type: SUCCESS,
           payload: { registerCheck: true },
         });
-      } else {
-        yield put({
-          type: FAILURE,
-          payload: { registerCheck: "overlap" },
-        });
       }
     } catch (e) {
       // 비정상적인 회원가입 응답에 대한 처리
@@ -91,7 +86,7 @@ export function createLoginSaga(type) {
       const response = yield call(authAPI.login, action.payload);
       console.log(response.data[0].id);
       sessionStorage.setItem("token", response.data[0].id);
-      
+
       yield put({
         type: SUCCESS,
         payload: {
@@ -108,4 +103,3 @@ export function createLoginSaga(type) {
     yield put(finishLoading(type));
   };
 }
-
