@@ -27,39 +27,41 @@ const RegisterForm = ({ history }) => {
     );
   };
 
+  const { id, password, nickname } = form;
+
   const onSubmit = (e) => {
     e.preventDefault();
-    const { id, password, passwordConfirm, nickname } = form;
-    // 하나라도 비어 있다면
-    if ([id, password, passwordConfirm].includes('')) {
-      setError('빈 칸을 모두 입력하세요.');
-      return;
-    }
-    if (password !== passwordConfirm) {
-      setError('비밀번호가 일치하지 않습니다.');
-      dispatch(changeField({ form: 'register', key: 'password', value: '' }));
-      dispatch(
-        changeField({ form: 'register', key: 'passwordConfirm', value: '' }),
-      );
-      return;
-    }
     dispatch(register({ id, password, nickname }));
   };
 
+  // store에서 auth.register 초기화
   useEffect(() => {
     dispatch(initializeForm('register'));
   }, [dispatch]);
 
   // 회원가입 성공/실패 처리
   useEffect(() => {
+    // 정상적인 회원가입 처리
     if (registerCheck === true) {
-      console.log('회원가입 성공');
       history.push('/login');
-    } else if (registerCheck === 'overlap') {
-      // 계정명이 이미 존재할 때
+    } 
+    else if (registerCheck === 'input blank') {
+      setError('빈 칸을 모두 입력하세요.');
+    }
+    // 중복 계정이 존재할 때 처리
+    else if (registerCheck === 'overlap') {
       setError('이미 존재하는 ID입니다.');
-    } else if (registerCheck === 'register fail') {
-      //기타 이유
+    } 
+    // 비밀번호와 비밀번호 확인 입력값이 다를 때 처리
+    else if (registerCheck === 'password validation fail') {
+      setError('비밀번호가 일치하지 않습니다.');
+      dispatch(changeField({ form: 'register', key: 'password', value: '' }));
+      dispatch(
+        changeField({ form: 'register', key: 'passwordConfirm', value: '' }),
+      );
+    } 
+    // 비정상적인 회원가입 응답에 대한 처리
+    else if (registerCheck === 'register fail') {
       setError('회원가입 실패');
     }
   }, [registerCheck, dispatch, history, error]);
@@ -75,3 +77,4 @@ const RegisterForm = ({ history }) => {
 };
 
 export default withRouter(RegisterForm);
+

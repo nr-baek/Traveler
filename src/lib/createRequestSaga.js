@@ -1,4 +1,4 @@
-import { call, put } from "redux-saga/effects";
+import { call, put, select } from "redux-saga/effects";
 import { finishLoading, startLoading } from "../redux/modules/loading";
 import * as authAPI from "./api/auth";
 
@@ -8,6 +8,7 @@ export const createRequestActionTypes = (type) => {
   return [type, SUCCESS, FAILURE];
 };
 
+// 회원가입 사가
 export function createRegisterSaga(type) {
   const SUCCESS = `${type}_SUCCESS`;
   const FAILURE = `${type}_FAILURE`;
@@ -15,11 +16,46 @@ export function createRegisterSaga(type) {
   return function* (action) {
     console.log(action);
     yield put(startLoading(type));
-    console.log(action.payload.id);
+
     try {
       const check = yield call(authAPI.checkRegister, action.payload.id);
-      if (check.data.length === 0) {
-        console.log(action.payload);
+      const idInput = yield select((state) => state.auth.register.id);
+      console.log(idInput);
+      const passwordInput = yield select(
+        (state) => state.auth.register.password
+      );
+      const passwordConfirmInput = yield select(
+        (state) => state.auth.register.passwordConfirm
+      );
+      const nicknameInput = yield select(
+        (state) => state.auth.register.nickname
+      );
+      // 입력창이 하나라도 빈칸일 경우 처리
+      if (
+        !(idInput && passwordInput && passwordConfirmInput && nicknameInput)
+      ) {
+        console.log("blank");
+        yield put({
+          type: FAILURE,
+          payload: { registerCheck: "input blank" },
+        });
+      }
+      // 비밀번호와 비밀번호 확인 값이 일치하지 않을때 처리
+      else if (passwordInput !== passwordConfirmInput) {
+        yield put({
+          type: FAILURE,
+          payload: { registerCheck: "password validation fail" },
+        });
+      }
+      // 중복 계정이 존재할 경우 처리
+      else if (check.data.length !== 0) {
+        yield put({
+          type: FAILURE,
+          payload: { registerCheck: "overlap" },
+        });
+      }
+      // 정상적인 회원가입 처리
+      else {
         yield call(authAPI.register, {
           ...action.payload,
         });
@@ -34,6 +70,7 @@ export function createRegisterSaga(type) {
         });
       }
     } catch (e) {
+      // 비정상적인 회원가입 응답에 대한 처리
       yield put({
         type: FAILURE,
         payload: { registerCheck: "register fail" },
@@ -43,6 +80,7 @@ export function createRegisterSaga(type) {
   };
 }
 
+// 로그인 사가
 export function createLoginSaga(type) {
   const SUCCESS = `${type}_SUCCESS`;
   const FAILUE = `${type}_FAILURE`;
@@ -53,6 +91,7 @@ export function createLoginSaga(type) {
       const response = yield call(authAPI.login, action.payload);
       console.log(response.data[0].id);
       sessionStorage.setItem("token", response.data[0].id);
+      
       yield put({
         type: SUCCESS,
         payload: {
@@ -64,37 +103,9 @@ export function createLoginSaga(type) {
       yield put({
         type: FAILUE,
         payload: { loginCheck: false },
-        // error: e,
       });
     }
     yield put(finishLoading(type));
   };
 }
 
-// export function createCheckSaga(type) {
-//   const SUCCESS = `${type}_SUCCESS`;
-//   const FAILUE = `${type}_FAILURE`;
-
-//   return function* (action) {
-//     yield put(startLoading(type));
-//     try {
-//       const response = yield call(authAPI.check, action.payload);
-//       console.log(response.data[0].id);
-//       if (response.data[0].id === 0) {
-//         return;
-//       } else {
-//         yield put({
-//           type: SUCCESS,
-//           payload: response.data[0].token,
-//         });
-//       }
-//     } catch (e) {
-//       yield put({
-//         type: FAILUE,
-//         payload: e,
-//         error: true,
-//       });
-//     }
-//     yield put(finishLoading(type));
-//   };
-// }
