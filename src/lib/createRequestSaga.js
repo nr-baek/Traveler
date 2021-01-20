@@ -1,6 +1,7 @@
 import { call, put, select } from "redux-saga/effects";
 import { finishLoading, startLoading } from "../redux/modules/loading";
 import * as authAPI from "./api/auth";
+import * as postAPI from "./api/post";
 
 export const createRequestActionTypes = (type) => {
   const SUCCESS = `${type}_SUCCESS`;
@@ -19,7 +20,6 @@ export function createRegisterSaga(type) {
     try {
       const check = yield call(authAPI.checkRegister, action.payload.id);
       const idInput = yield select((state) => state.auth.register.id);
-      console.log(idInput);
       const passwordInput = yield select(
         (state) => state.auth.register.password
       );
@@ -33,7 +33,6 @@ export function createRegisterSaga(type) {
       if (
         !(idInput && passwordInput && passwordConfirmInput && nicknameInput)
       ) {
-        console.log("blank");
         yield put({
           type: FAILURE,
           payload: { registerCheck: "input blank" },
@@ -102,3 +101,35 @@ export function createLoginSaga(type) {
   };
 }
 
+// 마이 페이지 게시물 로딩 사가
+export function createPostLoadingSaga(type) {
+  const SUCCESS = `${type}_SUCCESS`;
+  const FAILUE = `${type}_FAILURE`;
+
+  return function* (action) {
+    yield put(startLoading(type));
+
+    try {
+      // console.log(action.payload);
+      const res = yield call(postAPI.postLoad, action.payload);
+
+      console.log(res);
+
+      yield put({
+        type: SUCCESS,
+        payload: {
+          postloading: true,
+        },
+      });
+    } catch (e) {
+      yield put({
+        type: FAILUE,
+        payload: {
+          postloading: false,
+        },
+      });
+    }
+
+    yield put(finishLoading(type));
+  };
+}

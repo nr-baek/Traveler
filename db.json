@@ -8,7 +8,8 @@
   ],
   "posts": [
     {
-      "id": "nara",
+      "id": "1",
+      "writer": "nara",
       "title": "한슬이와 나라의 부산 여행",
       "type": "친구",
       "startDate": "2021-01-19",
