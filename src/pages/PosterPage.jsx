@@ -4,7 +4,7 @@ import { Redirect } from "react-router-dom";
 import Poster from "../components/post/Poster";
 
 const PosterPage = () => {
-  const token = sessionStorage.getItem("token");
+  const token = useSelector((state) => state.auth.token);
   if (token === null) {
     return <Redirect to="/login" />;
   }
