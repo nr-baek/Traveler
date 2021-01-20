@@ -4,20 +4,24 @@
       "id": "nara",
       "password": "1234",
       "nickname": "nara"
+    },
+    {
+      "id": "nara12",
+      "password": "123",
+      "nickname": "123"
     }
   ],
   "posts": [
     {
       "id": "1",
       "writer": "nara",
-      "title": "한슬이와 나라의 부산 여행",
+      "title": "한슬이와 나라의 경주 여행",
       "type": "친구",
-      "startDate": "2021-01-19",
-      "yyyy": "2021",
-      "mm": "03",
-      "dd": "19",
-      "days": "2",
-      "desc": "1일차 해운대"
+      "startDate": "2021-02-11",
+      "endDate": "2021-02-14",
+      "mm": "02",
+      "days": "4",
+      "desc": ["1일차 불국사", "2일차 첨성대"]
     }
   ]
 }
