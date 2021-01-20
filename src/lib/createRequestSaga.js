@@ -1,6 +1,6 @@
-import { call, put } from 'redux-saga/effects';
-import { finishLoading, startLoading } from '../redux/modules/loading';
-import * as authAPI from './api/auth';
+import { call, put } from "redux-saga/effects";
+import { finishLoading, startLoading } from "../redux/modules/loading";
+import * as authAPI from "./api/auth";
 
 export const createRequestActionTypes = (type) => {
   const SUCCESS = `${type}_SUCCESS`;
@@ -13,6 +13,7 @@ export function createRegisterSaga(type) {
   const FAILURE = `${type}_FAILURE`;
 
   return function* (action) {
+    console.log(action);
     yield put(startLoading(type));
     console.log(action.payload.id);
     try {
@@ -29,13 +30,13 @@ export function createRegisterSaga(type) {
       } else {
         yield put({
           type: FAILURE,
-          payload: { registerCheck: 'overlap' },
+          payload: { registerCheck: "overlap" },
         });
       }
     } catch (e) {
       yield put({
         type: FAILURE,
-        payload: { registerCheck: 'register fail' },
+        payload: { registerCheck: "register fail" },
       });
     }
     yield put(finishLoading(type));
@@ -51,7 +52,7 @@ export function createLoginSaga(type) {
     try {
       const response = yield call(authAPI.login, action.payload);
       console.log(response.data[0].id);
-      sessionStorage.setItem('token', response.data[0].id);
+      sessionStorage.setItem("token", response.data[0].id);
       yield put({
         type: SUCCESS,
         payload: {

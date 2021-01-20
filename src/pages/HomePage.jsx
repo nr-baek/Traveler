@@ -1,6 +1,7 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import React from "react";
+import { useSelector } from "react-redux";
+import { Redirect } from "react-router-dom";
+import MainTemplate from "../components/main/MainTemplate";
 
 const Home = () => {
   const token = useSelector((state) => state.auth);
@@ -8,7 +9,7 @@ const Home = () => {
   if (token === null) {
     return <Redirect to="/login" />;
   }
-  return <div>Home</div>;
+  return <MainTemplate></MainTemplate>;
 };
 
 export default Home;
