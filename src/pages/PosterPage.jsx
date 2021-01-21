@@ -1,6 +1,8 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
+
+import MainTemplate from "../components/main/MainTemplate";
 import Poster from "../components/Poster";
 
 const PosterPage = () => {
@@ -8,7 +10,6 @@ const PosterPage = () => {
   if (token === null) {
     return <Redirect to="/login" />;
   }
-  console.log(token);
   return <Poster />;
 };
 

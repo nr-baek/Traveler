@@ -8,6 +8,33 @@ const InfoBlock = styled.div`
   width: 250px;
   height: 193px;
   background: linear-gradient(45deg, #e3e2ff, #e0d5e3);
+        
+const InfoWrapper = styled.div`
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`
+
+const InfoContainer = styled.div`
+  width: 1000px;
+  height: 600px;
+  padding: 25px 50px;
+  display: flex;
+  justify-content: start;
+  align-items: flex-start;
+  flex-wrap: wrap;
+`
+
+const InfoBlock = styled.div`
+  margin: 10px 10px;
+  width: 280px;
+  height: 180px;
+  background: #fceecc;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -25,7 +52,7 @@ const InfoDate = styled.p`
   font-size: 1rem;
   font-weight: 500;
 `
-
+    
 const ShortcutButton = styled.button`
   margin-top: 20px;
   padding: 5px;
@@ -50,7 +77,7 @@ const MyInfo = ({ removePost, openPost, closePost, id, title, startDate, endDate
       <InfoTitle>{title}</InfoTitle>
       <InfoDate>{startDate} ~ {endDate}</InfoDate>
       <ShortcutButton onClick={openPost}>상세 내용 보기</ShortcutButton>
-    </InfoBlock>
+    </InfoBlock>    
   );
 };
 

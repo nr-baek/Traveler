@@ -135,34 +135,44 @@ export function createPostLoadingSaga(type) {
   };
 }
 
-// 마이 페이지 게시물 삭제 사가
-export function createPostDeleteSage(type) {
+// add page saga function
+export function createPostAddSaga(type) {
   const SUCCESS = `${type}_SUCCESS`;
-  const FAILUE = `${type}_FAILURE`;
+  const FAILURE = `${type}_FAILURE`;
 
   return function* (action) {
     yield put(startLoading(type));
 
+    const { writer, title, desc, travelType } = action.payload;
+
     try {
-      // console.log(action.payload);
-      const { posts } = action.payload;
-      console.log(posts);
-      yield call(postAPI.deletePost, action.payload.id);
+      const res = yield call(postAPI.getIdLength);
+      console.log(res);
+      const data = res.data.length + 1;
+
+      console.log(data);
+
       yield put({
         type: SUCCESS,
         payload: {
-          postloading: true,
+          postLoad: true,
         },
       });
-    } catch (e) {
+
+      yield call(postAPI.addPost, { writer, title, desc, travelType, data });
+    } catch (error) {
       yield put({
-        type: FAILUE,
+        type: FAILURE,
+
         payload: {
           postloading: false,
         },
       });
+      console.log(error);
     }
 
     yield put(finishLoading(type));
   };
 }
+
+
