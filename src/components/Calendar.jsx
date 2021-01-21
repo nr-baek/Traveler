@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 import { LeftOutlined, RightOutlined } from "@ant-design/icons";
-
 const CalendarForm = styled.div`
   .Calendar {
     padding: 0 20px 20px 20px;
@@ -11,7 +10,6 @@ const CalendarForm = styled.div`
     box-shadow: 0 15px 50px rgba(0, 0, 0, 0.05);
     display: flex;
     flex-direction: column;
-
     .selectMonth {
       align-self: center;
       padding: 10px 10px 0 10px;
@@ -93,7 +91,6 @@ const CalendarForm = styled.div`
     }
   }
 `;
-
 const Calendar = ({ date, changeDate, markingDays }) => {
   function generate() {
     const startWeek = date.clone().startOf("month").week();
@@ -176,5 +173,4 @@ const Calendar = ({ date, changeDate, markingDays }) => {
     </CalendarForm>
   );
 };
-
 export default Calendar;
