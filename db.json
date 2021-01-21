@@ -13,33 +13,6 @@
   ],
   "posts": [
     {
-      "id": 1,
-      "writer": "nara",
-      "title": "한슬이와 나라의 부산 여행",
-      "partyType": "friend",
-      "startDate": "2021-02-11",
-      "endDate": "2021-02-14",
-      "days": "4",
-      "desc": [
-        "1일차 해운대",
-        "2일차 광안리",
-        "3일차 수변공원",
-        "4일차 자갈치 시장"
-      ]
-    },
-    {
-      "id": 2,
-      "writer": "nara",
-      "title": "한슬이와 나라의 관악산 등산",
-      "partyType": "alone",
-      "startDate": "2021-03-01",
-      "endDate": "2021-03-01",
-      "days": "1",
-      "desc": [
-        "1일차 관악산 등반"
-      ]
-    },
-    {
       "id": 3,
       "writer": "nara",
       "title": "한슬이와 나라의 연남동 투어",

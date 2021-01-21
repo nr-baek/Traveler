@@ -107,14 +107,11 @@ export function createLoginSaga(type) {
 export function createPostLoadingSaga(type) {
   const SUCCESS = `${type}_SUCCESS`;
   const FAILUE = `${type}_FAILURE`;
-
   return function* (action) {
     yield put(startLoading(type));
-
     try {
       const res = yield call(postAPI.postLoad, action.payload);
       const posts = res.data;
-
       yield put({
         type: SUCCESS,
         payload: {
@@ -130,7 +127,6 @@ export function createPostLoadingSaga(type) {
         },
       });
     }
-
     yield put(finishLoading(type));
   };
 }
@@ -175,4 +171,31 @@ export function createPostAddSaga(type) {
   };
 }
 
-
+// 마이 페이지 게시물 삭제 사가
+export function createPostDeleteSage(type) {
+  const SUCCESS = `${type}_SUCCESS`;
+  const FAILUE = `${type}_FAILURE`;
+  return function* (action) {
+    yield put(startLoading(type));
+    try {
+      // console.log(action.payload);
+      const { posts } = action.payload;
+      console.log(posts);
+      yield call(postAPI.deletePost, action.payload.id);
+      yield put({
+        type: SUCCESS,
+        payload: {
+          postloading: true,
+        },
+      });
+    } catch (e) {
+      yield put({
+        type: FAILUE,
+        payload: {
+          postloading: false,
+        },
+      });
+    }
+    yield put(finishLoading(type));
+  };
+}

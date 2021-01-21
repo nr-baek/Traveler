@@ -128,54 +128,77 @@ const post = handleActions(
       ...state,
       ispostopen: true,
     }),
+
     [POSTCLOSE]: (state) => ({
       ...state,
       ispostopen: false,
     }),
+
     [POSTLOAD_SUCCESS]: (state, { payload }) => ({
       ...state,
       getpost: payload.getpost,
       postloading: payload.postloading,
     }),
+
     [POSTLOAD_FAILURE]: (state, { payload: { getpost, postloading } }) => ({
       ...state,
       getpost,
       postloading,
     }),
+
     [POSTDELETE]: (state, { payload }) => ({
       ...state,
       getpost: payload.posts,
     }),
-    [POSTDELETE_SUCCESS]: (state, { payload: { postloading } }) => ({
+
     [CHANGE_POST_FIELD]: (state, { payload: { form, key, value } }) =>
       produce(state, (draft) => {
         draft[form][key] = value;
       }),
+
     [CHECK_POST_FIELD]: (state, { payload: { form, value, checked } }) =>
       produce(state, (draft) => {
         draft[form]["partyType"][value] = checked;
       }),
+
     [INITIALIZE_POST_RADIOBOX]: (state, { payload: { setPost, type } }) =>
       produce(state, (draft) => {
         draft[setPost][type] = initialState[setPost][type];
       }),
+
     [INITIALIZE_POST_FORM]: (state, { payload: form }) => ({
       ...state,
       [form]: initialState[form],
       postloading: null,
     }),
+
     [POSTADD_SUCCESS]: (state, { payload: postloading }) => ({
       ...state,
       postloading,
     }),
+
     [POSTADD_FAILURE]: (state, { payload: postloading }) => ({
       ...state,
       postloading,
     }),
-    [POSTLOAD_SUCCESS]: (state, { payload: postloading }) => ({
+
+    [POSTLOAD_SUCCESS]: (state, { payload }) => ({
+      ...state,
+      getpost: payload.getpost,
+      postloading: payload.postloading,
+    }),
+
+    [POSTLOAD_FAILURE]: (state, { payload: { getpost, postloading } }) => ({
+      ...state,
+      getpost,
+      postloading,
+    }),
+
+    [POSTDELETE_SUCCESS]: (state, { payload: { postloading } }) => ({
       ...state,
       postloading,
     }),
+
     [POSTDELETE_FAILURE]: (state, { payload: { postloading } }) => ({
       ...state,
       postloading,
