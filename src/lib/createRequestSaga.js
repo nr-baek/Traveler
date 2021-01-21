@@ -113,12 +113,12 @@ export function createPostLoadingSaga(type) {
 
     try {
       const res = yield call(postAPI.postLoad, action.payload);
-
-      console.log(res);
+      const posts = res.data;
 
       yield put({
         type: SUCCESS,
         payload: {
+          getpost: posts,
           postloading: true,
         },
       });
@@ -143,7 +143,6 @@ export function createPostAddSaga(type) {
   return function* (action) {
     yield put(startLoading(type));
 
-    console.log(action.payload);
     const { writer, title, desc, travelType } = action.payload;
 
     try {
@@ -164,6 +163,7 @@ export function createPostAddSaga(type) {
     } catch (error) {
       yield put({
         type: FAILURE,
+
         payload: {
           postloading: false,
         },
@@ -174,3 +174,5 @@ export function createPostAddSaga(type) {
     yield put(finishLoading(type));
   };
 }
+
+
