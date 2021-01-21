@@ -46,7 +46,7 @@ const CalendarForm = styled.div`
       font-weight: bold;
       width: 100%;
       border-top: 1px solid #ddd;
-      padding: 10px 0;
+      padding: 6px 0;
       margin-top: 10px;
       display: flex;
       justify-content: space-around;
@@ -86,12 +86,12 @@ const CalendarForm = styled.div`
           font-weight: bold;
           text-indent: 5px;
           /* width: 110px; */
-          white-space: nowrap;
-          overflow: hidden;
-          text-overflow: ellipsis;
         }
         .marking.oneday {
           width: 110px;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
         }
         .marking.startday {
           z-index: 100000;
