@@ -1,69 +1,84 @@
-import axios from "axios";
-import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { withRouter } from "react-router-dom";
+import {
+  changePostFiled,
+  checkPostFiled,
+  postadd,
+  initializePostRadioBox,
+  initializePostForm,
+} from "../redux/modules/post";
 
 const Poster = ({ history }) => {
-  const [text, setText] = useState({
-    title: "",
-    desc: "",
-  });
+  const { title, desc } = useSelector(({ post }) => ({
+    title: post.setPost.title,
+    desc: post.setPost.desc,
+  }));
 
-  const [partyType, setPartyType] = useState({
-    alone: false,
-    friend: false,
-    family: false,
-    couple: false,
-  });
-
-  const { title, desc } = text;
-  const { alone, friend, family, couple } = partyType;
+  const partyType = useSelector(({ post }) => ({
+    alone: post.setPost.partyType.alone,
+    friend: post.setPost.partyType.friend,
+    family: post.setPost.partyType.family,
+    couple: post.setPost.partyType.couple,
+  }));
 
   const writer = useSelector((state) => state.auth.token);
 
+  const dispatch = useDispatch();
+
+  const { alone, friend, family, couple } = partyType;
+
   const onChange = (e) => {
     const { name, value } = e.target;
-    setText({
-      ...text,
-      [name]: value,
-    });
+    dispatch(
+      changePostFiled({
+        form: "setPost",
+        key: name,
+        value,
+      })
+    );
   };
 
   const onRadioChange = (e) => {
     const { value, checked } = e.target;
-    const initalState = {
-      alone: false,
-      friend: false,
-      family: false,
-      couple: false,
-    };
-    setPartyType({
-      ...initalState,
-      [value]: checked,
-    });
+
+    dispatch(
+      initializePostRadioBox({
+        setPost: "setPost",
+        type: "partyType",
+      })
+    );
+
+    dispatch(
+      checkPostFiled({
+        form: "setPost",
+        value,
+        checked,
+      })
+    );
   };
 
-  const onSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const res = await axios.get(
-        `http://localhost:4000/posts?writer=${writer}`
-      );
-      const id = res.data.length + 1;
-      await axios.post("http://localhost:4000/posts/", {
-        id,
-        writer,
-        title,
-        type: partyType,
-        desc,
-      });
-
-      history.push("/");
-    } catch (error) {
-      console.log(error);
+  const getType = (type) => {
+    for (const boolean in type) {
+      // console.log(`${travelType}: ${type[travelType]}`);
+      if (type[boolean] === true) {
+        return boolean;
+      }
     }
+  };
+
+  const travelType = getType(partyType);
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    dispatch(postadd({ title, desc, writer, travelType }));
+    history.push("/");
     console.log("서버로 간다간다 뿅간다~");
   };
+
+  useEffect(() => {
+    dispatch(initializePostForm("setPost"));
+  }, [dispatch]);
 
   return (
     <>
@@ -76,6 +91,9 @@ const Poster = ({ history }) => {
           value={title}
           onChange={onChange}
         />
+        <br />
+        <br />
+
         <br />
         <br />
         <label>

@@ -112,7 +112,6 @@ export function createPostLoadingSaga(type) {
     yield put(startLoading(type));
 
     try {
-      // console.log(action.payload);
       const res = yield call(postAPI.postLoad, action.payload);
 
       console.log(res);
@@ -136,3 +135,42 @@ export function createPostLoadingSaga(type) {
   };
 }
 
+// add page saga function
+export function createPostAddSaga(type) {
+  const SUCCESS = `${type}_SUCCESS`;
+  const FAILURE = `${type}_FAILURE`;
+
+  return function* (action) {
+    yield put(startLoading(type));
+
+    console.log(action.payload);
+    const { writer, title, desc, travelType } = action.payload;
+
+    try {
+      const res = yield call(postAPI.getIdLength);
+      console.log(res);
+      const data = res.data.length + 1;
+
+      console.log(data);
+
+      yield put({
+        type: SUCCESS,
+        payload: {
+          postLoad: true,
+        },
+      });
+
+      yield call(postAPI.addPost, { writer, title, desc, travelType, data });
+    } catch (error) {
+      yield put({
+        type: FAILURE,
+        payload: {
+          postloading: false,
+        },
+      });
+      console.log(error);
+    }
+
+    yield put(finishLoading(type));
+  };
+}
