@@ -14,12 +14,15 @@ const CHECK_POST_FIELD = "post/CHECK_POST_FIELD";
 const INITIALIZE_POST_RADIOBOX = "post/INITIALIZE_POST_RADIOBOX";
 const INITIALIZE_POST_FORM = "post/INITIALIZE_POST_FORM";
 
+
 const CHANGE_POST_DATE = "post/CHANGE_POST_DATE";
 const CHANGE_POST_DAY = "post/CHANGE_POST_DAY";
 
 // 액션 타입 정의
 const POSTOPEN = "post/POSTOPEN";
 const POSTCLOSE = "post/POSTCLOSE";
+
+const INITIALIZE_MYPOST = "post/INITIALIZE_MYPOST";
 
 // 사가 액션 타입 정의
 // create action
@@ -75,6 +78,8 @@ export const initializePostRadioBox = createAction(
 
 export const initializePostForm = createAction(INITIALIZE_POST_FORM);
 
+export const initializeMypost = createAction(INITIALIZE_MYPOST);
+
 // 사가 액션 생성자
 // create saga action creator
 export const postadd = createAction(
@@ -114,9 +119,10 @@ const initialState = {
     date: [],
     days: "",
   },
-  postloading: null,
+  postloading: false,
   ispostopen: false,
 };
+
 // 사가 생성
 // create saga 생성
 const postAddSaga = createPostAddSaga(POSTADD);
@@ -189,7 +195,7 @@ const post = handleActions(
     [INITIALIZE_POST_FORM]: (state, { payload: form }) => ({
       ...state,
       [form]: initialState[form],
-      postloading: null,
+      postloading: false,
     }),
 
     [POSTADD_SUCCESS]: (state, { payload: postloading }) => ({
@@ -222,6 +228,12 @@ const post = handleActions(
     [POSTDELETE_FAILURE]: (state, { payload: { postloading } }) => ({
       ...state,
       postloading,
+    }),
+    [INITIALIZE_MYPOST]: (state) => ({
+      ...state,
+      getpost: [],
+      postloading: false,
+      ispostopen: false,
     }),
   },
 
