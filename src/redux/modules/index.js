@@ -1,7 +1,6 @@
 import { combineReducers } from "redux";
 import auth, { authSaga } from "./auth";
 import post, { postSaga } from "./post";
-import calendar from "./calendar";
 import { all } from "redux-saga/effects";
 import loading from "./loading";
 
@@ -27,7 +26,6 @@ const rootReducer = combineReducers({
   auth,
   post,
   loading,
-  calendar,
 });
 
 export function* rootSaga() {

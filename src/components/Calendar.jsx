@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 import { LeftOutlined, RightOutlined } from "@ant-design/icons";
-import moment from "moment";
 
 const CalendarForm = styled.div`
   .Calendar {
@@ -10,11 +9,13 @@ const CalendarForm = styled.div`
     height: 580px;
     margin: 40px 20px 20px 20px;
     box-shadow: 0 15px 50px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
 
     .selectMonth {
-      float: left;
-      padding: 10px;
-      width: 200px;
+      align-self: center;
+      padding: 10px 10px 0 10px;
+      width: 300px;
       font-size: 1rem;
       display: flex;
       justify-content: space-between;
@@ -34,6 +35,11 @@ const CalendarForm = styled.div`
         cursor: pointer;
         padding: 4px 12px;
         font-weight: bold;
+        .month {
+          font-size: 1.2rem;
+          color: #7a6bff;
+          margin-right: 10px;
+        }
       }
     }
     .day {
@@ -54,7 +60,13 @@ const CalendarForm = styled.div`
       display: flex;
       justify-content: space-around;
       .box.grayed {
-        background: linear-gradient(-45deg, #f3f3f8 50%, #fafaff 50%);
+        background: repeating-linear-gradient(
+          45deg,
+          #f7f7fc,
+          #f7f7fc 2px,
+          #ffffff 2px,
+          #ffffff 14px
+        );
         color: #999;
       }
       .box {
@@ -65,21 +77,30 @@ const CalendarForm = styled.div`
         padding: 5px;
         .text {
           font-size: 0.9rem;
+          margin-left: 5px;
+        }
+        .marking {
+          height: 20px;
+          font-size: 0.8rem;
+          background: #b869cc;
+          color: #fff;
+          position: absolute;
         }
       }
+    }
+    .row > div:first-child {
+      border-left: none;
     }
   }
 `;
 
-const Calendar = (props) => {
+const Calendar = ({ date, changeDate, markingDays }) => {
   function generate() {
-    // today를 props.date로 변경합니다.
-    const today = moment();
-    const startWeek = props.date.clone().startOf("month").week();
+    const startWeek = date.clone().startOf("month").week();
     const endWeek =
-      props.date.clone().endOf("month").week() === 1
+      date.clone().endOf("month").week() === 1
         ? 53
-        : props.date.clone().endOf("month").week();
+        : date.clone().endOf("month").week();
     let calendar = [];
     for (let week = startWeek; week <= endWeek; week++) {
       calendar.push(
@@ -87,32 +108,21 @@ const Calendar = (props) => {
           {Array(7)
             .fill(0)
             .map((n, i) => {
-              let current = props.date
+              let current = date
                 .clone()
                 .week(week)
                 .startOf("week")
                 .add(n + i, "day");
-              let isToday =
-                today.format("YYYYMMDD") === current.format("YYYYMMDD")
-                  ? "today"
-                  : "";
-              let isSelected =
-                props.date.format("YYYYMMDD") === current.format("YYYYMMDD")
-                  ? "selected"
-                  : "";
               let isGrayed =
-                current.format("MM") === props.date.format("MM")
-                  ? ""
-                  : "grayed";
-
-              // .box에 changeDate 이벤트를 달아줍니다.
+                current.format("MM") === date.format("MM") ? "" : "grayed";
               return (
-                <div
-                  className={`box ${isSelected} ${isGrayed} ${isToday}`}
-                  key={i}
-                  onClick={() => props.changeDate(current)}
-                >
+                <div className={`box ${isGrayed}`} key={i}>
                   <span className={`text`}>{current.format("D")}</span>
+                  {/* <div className="marking">
+                    {week}
+                    {i}
+                  </div> */}
+                  {markingDays(current)}
                 </div>
               );
             })}
@@ -125,11 +135,14 @@ const Calendar = (props) => {
     <CalendarForm>
       <div className="Calendar">
         <div className="selectMonth">
-          <button>
+          <button onClick={() => changeDate(date.clone().subtract(1, "month"))}>
             <LeftOutlined />
           </button>
-          <span className="showMonth">Jan 2021</span>
-          <button>
+          <span className="showMonth">
+            <span className="month">{date.format("MMM")}</span>
+            {date.format("YYYY")}
+          </span>
+          <button onClick={() => changeDate(date.clone().add(1, "month"))}>
             <RightOutlined />
           </button>
         </div>
