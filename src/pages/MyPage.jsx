@@ -1,10 +1,13 @@
 import React from 'react';
-import MyInfoContainer from '../containers/info/MyInfoContainer';
+import MyInfoContainer from '../containers/MyInfoContainer';
+import MainTemplate from '../components/main/MainTemplate';
 
 const MyPage = () => {
   
   return (
-    <MyInfoContainer />
+    <MainTemplate>
+      <MyInfoContainer />
+    </MainTemplate>
   );
 };
 
