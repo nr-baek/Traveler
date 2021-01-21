@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { withRouter } from "react-router-dom";
 import {
@@ -8,6 +8,7 @@ import {
   initializePostRadioBox,
   initializePostForm,
 } from "../redux/modules/post";
+import Text from "./Text";
 
 const Poster = ({ history }) => {
   const { title, desc } = useSelector(({ post }) => ({
@@ -23,10 +24,13 @@ const Poster = ({ history }) => {
   }));
 
   const writer = useSelector((state) => state.auth.token);
+  const date = useSelector((state) => state.post.setPost.date);
+  const days = useSelector((state) => state.post.setPost.days);
 
   const dispatch = useDispatch();
 
   const { alone, friend, family, couple } = partyType;
+  const [startDate, endDate] = date;
 
   const onChange = (e) => {
     const { name, value } = e.target;
@@ -71,7 +75,9 @@ const Poster = ({ history }) => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    dispatch(postadd({ title, desc, writer, travelType }));
+    dispatch(
+      postadd({ title, desc, writer, travelType, startDate, endDate, days })
+    );
     history.push("/");
     console.log("서버로 간다간다 뿅간다~");
   };
@@ -93,7 +99,7 @@ const Poster = ({ history }) => {
         />
         <br />
         <br />
-
+        <Text />
         <br />
         <br />
         <label>
@@ -146,6 +152,7 @@ const Poster = ({ history }) => {
           onChange={onChange}
           value={desc}
         />
+        <input type="text" name="desc" />
         <br />
         <br />
         <button>ADD</button>
@@ -155,4 +162,3 @@ const Poster = ({ history }) => {
 };
 
 export default withRouter(Poster);
-

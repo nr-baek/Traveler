@@ -11,21 +11,26 @@ export const createRequestActionTypes = (type) => {
 export function createRegisterSaga(type) {
   const SUCCESS = `${type}_SUCCESS`;
   const FAILURE = `${type}_FAILURE`;
+
   return function* (action) {
-    console.log(action);
     yield put(startLoading(type));
+
     try {
       const check = yield call(authAPI.checkRegister, action.payload.id);
       const idInput = yield select((state) => state.auth.register.id);
+
       const passwordInput = yield select(
         (state) => state.auth.register.password
       );
+
       const passwordConfirmInput = yield select(
         (state) => state.auth.register.passwordConfirm
       );
+
       const nicknameInput = yield select(
         (state) => state.auth.register.nickname
       );
+
       // 입력창이 하나라도 빈칸일 경우 처리
       if (
         !(idInput && passwordInput && passwordConfirmInput && nicknameInput)
@@ -35,6 +40,7 @@ export function createRegisterSaga(type) {
           payload: { registerCheck: "input blank" },
         });
       }
+
       // 비밀번호와 비밀번호 확인 값이 일치하지 않을때 처리
       else if (passwordInput !== passwordConfirmInput) {
         yield put({
@@ -42,6 +48,7 @@ export function createRegisterSaga(type) {
           payload: { registerCheck: "password validation fail" },
         });
       }
+
       // 중복 계정이 존재할 경우 처리
       else if (check.data.length !== 0) {
         yield put({
@@ -49,11 +56,13 @@ export function createRegisterSaga(type) {
           payload: { registerCheck: "overlap" },
         });
       }
+
       // 정상적인 회원가입 처리
       else {
         yield call(authAPI.register, {
           ...action.payload,
         });
+
         yield put({
           type: SUCCESS,
           payload: { registerCheck: true },
@@ -69,16 +78,19 @@ export function createRegisterSaga(type) {
     yield put(finishLoading(type));
   };
 }
+
 // 로그인 사가
 export function createLoginSaga(type) {
   const SUCCESS = `${type}_SUCCESS`;
   const FAILUE = `${type}_FAILURE`;
+
   return function* (action) {
     yield put(startLoading(type));
+
     try {
       const response = yield call(authAPI.login, action.payload);
-      console.log(response.data[0].id);
       sessionStorage.setItem("token", response.data[0].id);
+
       yield put({
         type: SUCCESS,
         payload: {
@@ -95,15 +107,19 @@ export function createLoginSaga(type) {
     yield put(finishLoading(type));
   };
 }
+
 // 마이 페이지 게시물 로딩 사가
 export function createPostLoadingSaga(type) {
   const SUCCESS = `${type}_SUCCESS`;
   const FAILUE = `${type}_FAILURE`;
+
   return function* (action) {
     yield put(startLoading(type));
+
     try {
       const res = yield call(postAPI.postLoad, action.payload);
       const posts = res.data;
+
       yield put({
         type: SUCCESS,
         payload: {
@@ -122,25 +138,46 @@ export function createPostLoadingSaga(type) {
     yield put(finishLoading(type));
   };
 }
+
 // add page saga function
 export function createPostAddSaga(type) {
   const SUCCESS = `${type}_SUCCESS`;
   const FAILURE = `${type}_FAILURE`;
+
   return function* (action) {
     yield put(startLoading(type));
-    const { writer, title, desc, travelType } = action.payload;
+
+    const {
+      writer,
+      title,
+      desc,
+      travelType,
+      startDate,
+      endDate,
+      days,
+    } = action.payload;
+
     try {
       const res = yield call(postAPI.getIdLength);
-      console.log(res);
       const data = res.data.length + 1;
-      console.log(data);
+
       yield put({
         type: SUCCESS,
         payload: {
           postLoad: true,
         },
       });
-      yield call(postAPI.addPost, { writer, title, desc, travelType, data });
+
+      yield call(postAPI.addPost, {
+        data,
+        writer,
+        title,
+        desc,
+        travelType,
+        startDate,
+        endDate,
+        days,
+      });
     } catch (error) {
       yield put({
         type: FAILURE,
@@ -153,17 +190,20 @@ export function createPostAddSaga(type) {
     yield put(finishLoading(type));
   };
 }
+
 // 마이 페이지 게시물 삭제 사가
 export function createPostDeleteSage(type) {
   const SUCCESS = `${type}_SUCCESS`;
   const FAILUE = `${type}_FAILURE`;
+
   return function* (action) {
     yield put(startLoading(type));
+
     try {
-      // console.log(action.payload);
       const { posts } = action.payload;
-      console.log(posts);
+
       yield call(postAPI.deletePost, action.payload.id);
+
       yield put({
         type: SUCCESS,
         payload: {

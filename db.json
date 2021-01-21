@@ -13,6 +13,26 @@
   ],
   "posts": [
     {
+      "id": 1,
+      "writer": "nara",
+      "title": "한슬이와 나라의 연남동 투어",
+      "partyType": "friend",
+      "startDate": "2021-04-01",
+      "endDate": "2021-04-01",
+      "days": "1",
+      "desc": ["1일차 연남동 맛집 방문"]
+    },
+    {
+      "id": 2,
+      "writer": "nara",
+      "title": "한슬이와 나라의 연남동 투어",
+      "partyType": "friend",
+      "startDate": "2021-04-01",
+      "endDate": "2021-04-01",
+      "days": "1",
+      "desc": ["1일차 연남동 맛집 방문"]
+    },
+    {
       "id": 3,
       "writer": "nara",
       "title": "한슬이와 나라의 연남동 투어",
