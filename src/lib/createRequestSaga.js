@@ -2,22 +2,18 @@ import { call, put, select } from "redux-saga/effects";
 import { finishLoading, startLoading } from "../redux/modules/loading";
 import * as authAPI from "./api/auth";
 import * as postAPI from "./api/post";
-
 export const createRequestActionTypes = (type) => {
   const SUCCESS = `${type}_SUCCESS`;
   const FAILURE = `${type}_FAILURE`;
   return [type, SUCCESS, FAILURE];
 };
-
 // 회원가입 사가
 export function createRegisterSaga(type) {
   const SUCCESS = `${type}_SUCCESS`;
   const FAILURE = `${type}_FAILURE`;
-
   return function* (action) {
     console.log(action);
     yield put(startLoading(type));
-
     try {
       const check = yield call(authAPI.checkRegister, action.payload.id);
       const idInput = yield select((state) => state.auth.register.id);
@@ -73,19 +69,16 @@ export function createRegisterSaga(type) {
     yield put(finishLoading(type));
   };
 }
-
 // 로그인 사가
 export function createLoginSaga(type) {
   const SUCCESS = `${type}_SUCCESS`;
   const FAILUE = `${type}_FAILURE`;
-
   return function* (action) {
     yield put(startLoading(type));
     try {
       const response = yield call(authAPI.login, action.payload);
       console.log(response.data[0].id);
       sessionStorage.setItem("token", response.data[0].id);
-
       yield put({
         type: SUCCESS,
         payload: {
@@ -102,7 +95,6 @@ export function createLoginSaga(type) {
     yield put(finishLoading(type));
   };
 }
-
 // 마이 페이지 게시물 로딩 사가
 export function createPostLoadingSaga(type) {
   const SUCCESS = `${type}_SUCCESS`;
@@ -130,47 +122,37 @@ export function createPostLoadingSaga(type) {
     yield put(finishLoading(type));
   };
 }
-
 // add page saga function
 export function createPostAddSaga(type) {
   const SUCCESS = `${type}_SUCCESS`;
   const FAILURE = `${type}_FAILURE`;
-
   return function* (action) {
     yield put(startLoading(type));
-
     const { writer, title, desc, travelType } = action.payload;
-
     try {
       const res = yield call(postAPI.getIdLength);
       console.log(res);
       const data = res.data.length + 1;
-
       console.log(data);
-
       yield put({
         type: SUCCESS,
         payload: {
           postLoad: true,
         },
       });
-
       yield call(postAPI.addPost, { writer, title, desc, travelType, data });
     } catch (error) {
       yield put({
         type: FAILURE,
-
         payload: {
           postloading: false,
         },
       });
       console.log(error);
     }
-
     yield put(finishLoading(type));
   };
 }
-
 // 마이 페이지 게시물 삭제 사가
 export function createPostDeleteSage(type) {
   const SUCCESS = `${type}_SUCCESS`;
