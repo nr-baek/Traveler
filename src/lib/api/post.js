@@ -7,13 +7,25 @@ export const postLoad = ({ token }) => {
 
 export const getIdLength = () => client.get(`http://localhost:4000/posts/`);
 
-export const addPost = ({ data, writer, title, travelType, desc }) =>
+export const addPost = ({
+  data,
+  writer,
+  title,
+  travelType,
+  startDate,
+  endDate,
+  desc,
+  days,
+}) =>
   client.post("http://localhost:4000/posts/", {
     id: data,
     writer,
     title,
     travelType,
+    startDate,
+    endDate,
     desc,
+    days,
   });
 
 // 선택된 게시물 삭제

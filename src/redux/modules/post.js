@@ -14,6 +14,10 @@ const CHECK_POST_FIELD = "post/CHECK_POST_FIELD";
 const INITIALIZE_POST_RADIOBOX = "post/INITIALIZE_POST_RADIOBOX";
 const INITIALIZE_POST_FORM = "post/INITIALIZE_POST_FORM";
 
+
+const CHANGE_POST_DATE = "post/CHANGE_POST_DATE";
+const CHANGE_POST_DAY = "post/CHANGE_POST_DAY";
+
 // 액션 타입 정의
 const POSTOPEN = "post/POSTOPEN";
 const POSTCLOSE = "post/POSTCLOSE";
@@ -25,10 +29,12 @@ const INITIALIZE_MYPOST = "post/INITIALIZE_MYPOST";
 const [POSTADD, POSTADD_SUCCESS, POSTADD_FAILURE] = createRequestActionTypes(
   "post/POSTADD"
 );
+
 // read action
 const [POSTLOAD, POSTLOAD_SUCCESS, POSTLOAD_FAILURE] = createRequestActionTypes(
   "post/POSTLOAD"
 );
+
 const [
   POSTDELETE,
   POSTDELETE_SUCCESS,
@@ -38,6 +44,7 @@ const [
 // 액션 생성자
 export const postopen = createAction(POSTOPEN);
 export const postclose = createAction(POSTCLOSE);
+
 // action creator function
 export const changePostFiled = createAction(
   CHANGE_POST_FIELD,
@@ -47,6 +54,7 @@ export const changePostFiled = createAction(
     value, // 실제 바꾸려는 값
   })
 );
+
 export const checkPostFiled = createAction(
   CHECK_POST_FIELD,
   ({ form, value, checked }) => ({
@@ -55,6 +63,11 @@ export const checkPostFiled = createAction(
     checked, // boolean
   })
 );
+
+export const changePostDate = createAction(CHANGE_POST_DATE, (state) => state);
+
+export const changePostDay = createAction(CHANGE_POST_DAY, (state) => state);
+
 export const initializePostRadioBox = createAction(
   INITIALIZE_POST_RADIOBOX,
   ({ setPost, type }) => ({
@@ -62,18 +75,23 @@ export const initializePostRadioBox = createAction(
     type,
   })
 );
+
 export const initializePostForm = createAction(INITIALIZE_POST_FORM);
+
 export const initializeMypost = createAction(INITIALIZE_MYPOST);
 
 // 사가 액션 생성자
 // create saga action creator
 export const postadd = createAction(
   POSTADD,
-  ({ writer, title, desc, travelType }) => ({
+  ({ writer, title, desc, travelType, startDate, endDate, days }) => ({
     writer,
     title,
     desc,
     travelType,
+    startDate,
+    endDate,
+    days,
   })
 );
 
@@ -81,10 +99,12 @@ export const postadd = createAction(
 export const postload = createAction(POSTLOAD, (token) => ({
   token,
 }));
+
 export const postdelete = createAction(POSTDELETE, (id, posts) => ({
   id,
   posts,
 }));
+
 const initialState = {
   getpost: [],
   setPost: {
@@ -96,6 +116,8 @@ const initialState = {
       family: false,
       couple: false,
     },
+    date: [],
+    days: "",
   },
   postloading: false,
   ispostopen: false,
@@ -104,9 +126,11 @@ const initialState = {
 // 사가 생성
 // create saga 생성
 const postAddSaga = createPostAddSaga(POSTADD);
+
 // read saga 생성
 const postloadSaga = createPostLoadingSaga(POSTLOAD);
 const postdeleteSage = createPostDeleteSage(POSTDELETE);
+
 export function* postSaga() {
   yield takeLatest(POSTADD, postAddSaga);
   yield takeLatest(POSTLOAD, postloadSaga);
@@ -120,63 +144,87 @@ const post = handleActions(
       ...state,
       ispostopen: true,
     }),
+
     [POSTCLOSE]: (state) => ({
       ...state,
       ispostopen: false,
     }),
+
     [POSTLOAD_SUCCESS]: (state, { payload }) => ({
       ...state,
       getpost: payload.getpost,
       postloading: payload.postloading,
     }),
+
     [POSTLOAD_FAILURE]: (state, { payload: { getpost, postloading } }) => ({
       ...state,
       getpost,
       postloading,
     }),
+
     [POSTDELETE]: (state, { payload }) => ({
       ...state,
       getpost: payload.posts,
     }),
+
     [CHANGE_POST_FIELD]: (state, { payload: { form, key, value } }) =>
       produce(state, (draft) => {
         draft[form][key] = value;
       }),
+
     [CHECK_POST_FIELD]: (state, { payload: { form, value, checked } }) =>
       produce(state, (draft) => {
         draft[form]["partyType"][value] = checked;
       }),
+
+    [CHANGE_POST_DATE]: (state, action) =>
+      produce(state, (draft) => {
+        draft["setPost"]["date"] = action.payload;
+      }),
+
+    [CHANGE_POST_DAY]: (state, action) =>
+      produce(state, (draft) => {
+        draft["setPost"]["days"] = action.payload;
+      }),
+
     [INITIALIZE_POST_RADIOBOX]: (state, { payload: { setPost, type } }) =>
       produce(state, (draft) => {
         draft[setPost][type] = initialState[setPost][type];
       }),
+
     [INITIALIZE_POST_FORM]: (state, { payload: form }) => ({
       ...state,
       [form]: initialState[form],
       postloading: false,
     }),
+
     [POSTADD_SUCCESS]: (state, { payload: postloading }) => ({
       ...state,
       postloading,
     }),
+
     [POSTADD_FAILURE]: (state, { payload: postloading }) => ({
       ...state,
       postloading,
     }),
+
     [POSTLOAD_SUCCESS]: (state, { payload }) => ({
       ...state,
       getpost: payload.getpost,
       postloading: payload.postloading,
     }),
+
     [POSTLOAD_FAILURE]: (state, { payload: { getpost, postloading } }) => ({
       ...state,
       getpost,
       postloading,
     }),
+
     [POSTDELETE_SUCCESS]: (state, { payload: { postloading } }) => ({
       ...state,
       postloading,
     }),
+
     [POSTDELETE_FAILURE]: (state, { payload: { postloading } }) => ({
       ...state,
       postloading,
@@ -188,6 +236,7 @@ const post = handleActions(
       ispostopen: false,
     }),
   },
+
   initialState
 );
 export default post;
