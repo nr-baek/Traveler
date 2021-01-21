@@ -6,7 +6,8 @@ import {
   UserOutlined,
   EnvironmentOutlined,
 } from "@ant-design/icons";
-import NavBtn from "../common/NavBtn";
+import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const StyledNav = styled.nav`
   width: 200px;
@@ -38,9 +39,34 @@ const StyledNav = styled.nav`
     .welcomeMsg {
       font-weight: bold;
     }
+    .nickName {
+      font-size: 1.2rem;
+      font-weight: 500;
+      color: #8a60fd;
+    }
   }
   .navIcon {
     margin-right: 10px;
+  }
+  .navBtn {
+    display: block;
+    width: 100%;
+    height: 45px;
+    margin: 10px 0;
+    padding: 10px 0 10px 30px;
+    color: #444;
+    background: #fff;
+    border: none;
+    border-radius: 3px;
+    font-size: 1.1rem;
+    text-align: left;
+    outline: none;
+    cursor: pointer;
+    &:hover {
+      background-color: #9e97ff;
+      color: #fff;
+      transition: background-color 0.3s, color 0.3s;
+    }
   }
 `;
 
@@ -58,6 +84,11 @@ const UserMark = styled.div`
 `;
 
 const Nav = () => {
+
+  const { nickname }  = useSelector(({ auth }) => ({
+    nickname: auth.nickname,
+  }))
+
   return (
     <StyledNav>
       <UserMark className="userMark">
@@ -65,32 +96,32 @@ const Nav = () => {
       </UserMark>
       <div className="welcomeBox">
         <p className="welcomeMsg">Welcome</p>
-        <p className="nickName">narazzang</p>
+        <p className="nickName">{nickname}</p>
       </div>
       <ul>
         <li>
-          <NavBtn>
+          <Link className="navBtn" to="/">
             <HomeOutlined className="navIcon" />
             Home
-          </NavBtn>
+          </Link>
         </li>
         <li>
-          <NavBtn>
+          <Link className="navBtn" to="/poster">
             <FileAddOutlined className="navIcon" />
             Add
-          </NavBtn>
+          </Link>
         </li>
         <li>
-          <NavBtn>
+          <Link className="navBtn" to="/mypage">
             <UserOutlined className="navIcon" />
             My page
-          </NavBtn>
+          </Link>
         </li>
         <li>
-          <NavBtn>
+          <Link className="navBtn" to="/map">
             <EnvironmentOutlined className="navIcon" />
             Map
-          </NavBtn>
+          </Link>
         </li>
       </ul>
     </StyledNav>

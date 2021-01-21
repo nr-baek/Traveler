@@ -1,4 +1,4 @@
-import { call, put, select } from "redux-saga/effects";
+import { call, delay, put, select } from "redux-saga/effects";
 import { finishLoading, startLoading } from "../redux/modules/loading";
 import * as authAPI from "./api/auth";
 import * as postAPI from "./api/post";
@@ -77,12 +77,13 @@ export function createLoginSaga(type) {
     yield put(startLoading(type));
     try {
       const response = yield call(authAPI.login, action.payload);
-      console.log(response.data[0].id);
+      console.log(response.data[0]);
       sessionStorage.setItem("token", response.data[0].id);
       yield put({
         type: SUCCESS,
         payload: {
           token: response.data[0].id,
+          nickname: response.data[0].nickname,
           loginCheck: true,
         },
       });
@@ -95,7 +96,7 @@ export function createLoginSaga(type) {
     yield put(finishLoading(type));
   };
 }
-// 마이 페이지 게시물 로딩 사가
+// 메인 페이지 로딩 사가
 export function createPostLoadingSaga(type) {
   const SUCCESS = `${type}_SUCCESS`;
   const FAILUE = `${type}_FAILURE`;
@@ -104,6 +105,7 @@ export function createPostLoadingSaga(type) {
     try {
       const res = yield call(postAPI.postLoad, action.payload);
       const posts = res.data;
+      yield delay(1000);
       yield put({
         type: SUCCESS,
         payload: {

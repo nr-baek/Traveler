@@ -19,6 +19,7 @@ const initialState = {
     id: "",
     password: "",
   },
+  user: "",
   token: null,
   registerCheck: null,
   loginCheck: null,
@@ -93,10 +94,11 @@ const auth = handleActions(
       registerCheck,
     }),
     // 로그인 성공
-    [LOGIN_SUCCESS]: (state, { payload: { token, loginCheck } }) => ({
+    [LOGIN_SUCCESS]: (state, { payload: { token, loginCheck, nickname } }) => ({
       ...state,
       loginCheck,
       token,
+      nickname,
     }),
     // 로그인 실패
     [LOGIN_FAILURE]: (state, { payload: { loginCheck } }) => ({

@@ -6,15 +6,21 @@ const InfoBlock = styled.div`
   margin: 10px 10px 10px 30px;
   width: 250px;
   height: 193px;
-  background: linear-gradient(45deg, #e3e2ff, #e0d5e3);
+  background: #e3e2ff;
+  border: 1px solid #c9c7ff; 
   display: flex;
   align-items: center;
   justify-content: center;
+  text-align: center;
   flex-direction: column;
 `;
+
+const InfoContentBlock = styled.div`
+  margin-top: 10px;
+`
+
 const InfoTitle = styled.h2`
   margin: 0;
-  margin-top: 10px;
   font-size: 1.2rem;
   font-weight: 600;
 `;
@@ -23,14 +29,14 @@ const InfoDate = styled.p`
   font-weight: 500;
 `;
 const ShortcutButton = styled.button`
-  margin-top: 20px;
+  margin-top: 10px;
   padding: 5px;
   background: #ccc;
   border: none;
   cursor: pointer;
   outline: none;
   &:hover {
-    background: linear-gradient(45deg, #8aeddd, #e0d5e3);
+    background: #ccc
   }
 `;
 const MyInfo = ({
@@ -47,20 +53,20 @@ const MyInfo = ({
       <CloseOutlined
         onClick={() => removePost(id)}
         style={{
-          position: "absolute",
-          right: "3%",
-          top: "3%",
+          position: 'absolute',
+          right: "4%",
+          top: "4%",
           fontSize: "1.3rem",
-          color: "#990db5",
+          color: "#444",
           cursor: "pointer",
           outline: "none",
         }}
       />
-      <InfoTitle>{title}</InfoTitle>
-      <InfoDate>
-        {startDate} ~ {endDate}
-      </InfoDate>
-      <ShortcutButton onClick={openPost}>상세 내용 보기</ShortcutButton>
+      <InfoContentBlock>
+        <InfoTitle>{title}</InfoTitle>
+        <InfoDate>{startDate} ~ {endDate}</InfoDate>
+        <ShortcutButton onClick={openPost}>상세 내용 보기</ShortcutButton>
+      </InfoContentBlock>
     </InfoBlock>
   );
 };

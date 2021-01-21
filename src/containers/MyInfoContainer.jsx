@@ -5,12 +5,15 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   postclose,
   postdelete,
-  postload,
   postopen,
+  changePostloading,
+  initializePostLoading
 } from "../redux/modules/post";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import newplanBg from "../img/newplanbgImg.jpg";
+import { LoadingOutlined } from '@ant-design/icons';
+import LoadingBox from '../components/common/LoadingBox';
 
 const InfoContainer = styled.div`
   width: 100%;
@@ -57,19 +60,14 @@ const NewPlanMessage = styled.h2`
 
 const MyInfoContainer = () => {
   const dispatch = useDispatch();
-  const { token, posts } = useSelector(({ auth, post }) => ({
+  
+  const { posts } = useSelector(({ auth, post }) => ({
     token: auth.token,
     posts: post.getpost,
   }));
 
-  // 게시물 가져오기
-  useEffect(() => {
-    dispatch(postload(token));
-  }, [dispatch, token]);
-
   // 게시물 삭제
   const removePost = (id) => {
-    // posts = posts.filter(post => post.id !== id);
     dispatch(
       postdelete(
         id,
@@ -88,10 +86,10 @@ const MyInfoContainer = () => {
     console.log("close");
   };
 
-  console.log(posts);
   return (
     <InfoContainer>
-      {posts.length ? (
+      {posts.length 
+        ? (
         posts.map((post) => (
           <MyInfo
             openPost={openPost}
@@ -103,15 +101,15 @@ const MyInfoContainer = () => {
             startDate={post.startDate}
             endDate={post.endDate}
           />
-        ))
-      ) : (
-        <NewPlanContainer>
+        ))) 
+        :
+        <NewPlanContainer> 
           <NewPlanBox>
             <NewPlanMessage>Please Add Your New Travel Plan!</NewPlanMessage>
             <Link
               to="/poster"
               style={{
-                borderBottom: "2px solid #e63535",
+                borderBottom: "2px solid #8a60fd",
                 borderRadius: "5px 5px 0 0",
                 padding: "10px",
                 fontSize: "1.1rem",
@@ -121,7 +119,7 @@ const MyInfoContainer = () => {
             </Link>
           </NewPlanBox>
         </NewPlanContainer>
-      )}
+      }
     </InfoContainer>
   );
 };

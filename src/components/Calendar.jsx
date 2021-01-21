@@ -52,7 +52,6 @@ const CalendarForm = styled.div`
       justify-content: space-around;
     }
     .row {
-      /* background: pink; */
       border-top: 1px solid #ddd;
       width: 100%;
       display: flex;
@@ -75,14 +74,43 @@ const CalendarForm = styled.div`
         padding: 5px;
         .text {
           font-size: 0.9rem;
+          font-weight: bold;
+          display: inline-block;
           margin-left: 5px;
         }
         .marking {
           height: 20px;
           font-size: 0.8rem;
-          background: #b869cc;
           color: #fff;
           position: absolute;
+          font-weight: bold;
+          text-indent: 5px;
+          /* width: 110px; */
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+        .marking.oneday {
+          width: 110px;
+        }
+        .marking.startday {
+          z-index: 100000;
+        }
+        .marking.plus {
+          width: 120px;
+          margin-left: -10px;
+        }
+        .couple {
+          background: #f1a6a6;
+        }
+        .family {
+          background: #eec264;
+        }
+        .friend {
+          background: #aad17e;
+        }
+        .alone {
+          background: #8585df;
         }
       }
     }
