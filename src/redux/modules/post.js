@@ -11,13 +11,16 @@ import produce from "immer";
 // action type 정의
 const CHANGE_POST_FIELD = "post/CHANGE_POST_FIELD";
 const CHECK_POST_FIELD = "post/CHECK_POST_FIELD";
-const INITIALIZE_POST_RADIOBOX = "post/INITIALIZE_POST_RADIOBOX";
-const INITIALIZE_POST_FORM = "post/INITIALIZE_POST_FORM";
-
 
 const CHANGE_POST_DATE = "post/CHANGE_POST_DATE";
 const CHANGE_POST_DAY = "post/CHANGE_POST_DAY";
 
+const CONTEXT_LIST = "post/CONTEXT_LIST";
+
+const INITIALIZE_POST_RADIOBOX = "post/INITIALIZE_POST_RADIOBOX";
+const INITIALIZE_POST_FORM = "post/INITIALIZE_POST_FORM";
+const INITIALIZE_POST_DESCRIPTION = "post/INITIALIZE_POST_CONTEXT";
+// description
 // 액션 타입 정의
 const POSTOPEN = "post/POSTOPEN";
 const POSTCLOSE = "post/POSTCLOSE";
@@ -68,6 +71,12 @@ export const changePostDate = createAction(CHANGE_POST_DATE, (state) => state);
 
 export const changePostDay = createAction(CHANGE_POST_DAY, (state) => state);
 
+export const contextList = createAction(CONTEXT_LIST, (state) => state);
+
+export const initializePostDescription = createAction(
+  INITIALIZE_POST_DESCRIPTION
+);
+
 export const initializePostRadioBox = createAction(
   INITIALIZE_POST_RADIOBOX,
   ({ setPost, type }) => ({
@@ -84,14 +93,14 @@ export const initializeMypost = createAction(INITIALIZE_MYPOST);
 // create saga action creator
 export const postadd = createAction(
   POSTADD,
-  ({ writer, title, desc, travelType, startDate, endDate, days }) => ({
+  ({ writer, title, travelType, startDate, endDate, days, context }) => ({
     writer,
     title,
-    desc,
     travelType,
     startDate,
     endDate,
     days,
+    context,
   })
 );
 
@@ -118,6 +127,7 @@ const initialState = {
     },
     date: [],
     days: "",
+    context: [],
   },
   postloading: false,
   ispostopen: false,
@@ -186,6 +196,20 @@ const post = handleActions(
       produce(state, (draft) => {
         draft["setPost"]["days"] = action.payload;
       }),
+
+    [CONTEXT_LIST]: (state, action) => {
+      console.log(action);
+      return produce(state, (draft) => {
+        draft.setPost.context = [...draft.setPost.context, ...action.payload];
+      });
+    },
+
+    [INITIALIZE_POST_DESCRIPTION]: (state) => {
+      console.log(state);
+      return produce(state, (draft) => {
+        draft.setPost.desc = "";
+      });
+    },
 
     [INITIALIZE_POST_RADIOBOX]: (state, { payload: { setPost, type } }) =>
       produce(state, (draft) => {

@@ -154,11 +154,11 @@ export function createPostAddSaga(type) {
     const {
       writer,
       title,
-      desc,
       travelType,
       startDate,
       endDate,
       days,
+      context,
     } = action.payload;
 
     try {
@@ -176,11 +176,11 @@ export function createPostAddSaga(type) {
         data,
         writer,
         title,
-        desc,
         travelType,
         startDate,
         endDate,
         days,
+        context,
       });
     } catch (error) {
       yield put({
