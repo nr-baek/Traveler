@@ -1,19 +1,10 @@
 import React from "react";
 import MyInfo from "../components/MyInfo";
-import { useEffect } from "react";
+import { Empty } from "antd";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  postclose,
-  postdelete,
-  postopen,
-  changePostloading,
-  initializePostLoading
-} from "../redux/modules/post";
+import { postclose, postdelete, postopen } from "../redux/modules/post";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import newplanBg from "../img/newplanbgImg.jpg";
-import { LoadingOutlined } from '@ant-design/icons';
-import LoadingBox from '../components/common/LoadingBox';
 
 const InfoContainer = styled.div`
   width: 100%;
@@ -29,7 +20,7 @@ const InfoContainer = styled.div`
   }
   &::-webkit-scrollbar-thumb {
     border-radius: 10px;
-    background-color: #7adcf5;
+    background-color: #acadff;
   }
   &::-webkit-scrollbar-track {
     background: #f6f5fa;
@@ -39,8 +30,6 @@ const InfoContainer = styled.div`
 const NewPlanContainer = styled.div`
   width: 100%;
   height: 100%;
-  background-image: url(${newplanBg});
-  background-size: cover;
 `;
 
 const NewPlanBox = styled.div`
@@ -55,12 +44,31 @@ const NewPlanBox = styled.div`
 
 const NewPlanMessage = styled.h2`
   font-size: 2rem;
-  margin-bottom: 50px;
+  margin-bottom: 40px;
+  margin-top: 10px;
+  color: #666;
+`;
+
+const AddNewBtn = styled.div`
+  width: 200px;
+  height: 200px;
+  border: 3px dashed #aba5ff;
+  background: #fff;
+  border-radius: 10%;
+  color: #b7a7ff;
+  font-size: 6rem;
+  text-align: center;
+  line-height: 190px;
+  &:hover {
+    background: #f9f7ff;
+    color: #9e8af6;
+    border-color: #918af6;
+  }
 `;
 
 const MyInfoContainer = () => {
   const dispatch = useDispatch();
-  
+
   const { posts } = useSelector(({ auth, post }) => ({
     token: auth.token,
     posts: post.getpost,
@@ -88,8 +96,7 @@ const MyInfoContainer = () => {
 
   return (
     <InfoContainer>
-      {posts.length 
-        ? (
+      {posts.length ? (
         posts.map((post) => (
           <MyInfo
             openPost={openPost}
@@ -100,26 +107,20 @@ const MyInfoContainer = () => {
             title={post.title}
             startDate={post.startDate}
             endDate={post.endDate}
+            posts={posts}
           />
-        ))) 
-        :
-        <NewPlanContainer> 
+        ))
+      ) : (
+        <NewPlanContainer>
           <NewPlanBox>
+            <Empty />
             <NewPlanMessage>Please Add Your New Travel Plan!</NewPlanMessage>
-            <Link
-              to="/poster"
-              style={{
-                borderBottom: "2px solid #8a60fd",
-                borderRadius: "5px 5px 0 0",
-                padding: "10px",
-                fontSize: "1.1rem",
-              }}
-            >
-              Go To Add Your New Plan
+            <Link to="/poster">
+              <AddNewBtn>+</AddNewBtn>
             </Link>
           </NewPlanBox>
         </NewPlanContainer>
-      }
+      )}
     </InfoContainer>
   );
 };
