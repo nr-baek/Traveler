@@ -14,8 +14,8 @@ export const addPost = ({
   travelType,
   startDate,
   endDate,
-  desc,
   days,
+  context,
 }) =>
   client.post("http://localhost:4000/posts/", {
     id: data,
@@ -24,8 +24,8 @@ export const addPost = ({
     travelType,
     startDate,
     endDate,
-    desc,
     days,
+    context,
   });
 
 // 선택된 게시물 삭제
