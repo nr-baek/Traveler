@@ -122,7 +122,7 @@ export function createPostLoadingSaga(type) {
       const res = yield call(postAPI.postLoad, action.payload);
       const posts = res.data;
 
-      yield delay(1000);
+      yield delay(500);
 
       yield put({
         type: SUCCESS,

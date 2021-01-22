@@ -14,14 +14,10 @@ const CHECK_POST_FIELD = "post/CHECK_POST_FIELD";
 const INITIALIZE_POST_RADIOBOX = "post/INITIALIZE_POST_RADIOBOX";
 const INITIALIZE_POST_FORM = "post/INITIALIZE_POST_FORM";
 
-
 const CHANGE_POST_DATE = "post/CHANGE_POST_DATE";
 const CHANGE_POST_DAY = "post/CHANGE_POST_DAY";
 
 // 액션 타입 정의
-const POSTOPEN = "post/POSTOPEN";
-const POSTCLOSE = "post/POSTCLOSE";
-
 const INITIALIZE_MYPOST = "post/INITIALIZE_MYPOST";
 
 // 사가 액션 타입 정의
@@ -42,8 +38,6 @@ const [
 ] = createRequestActionTypes("post/POSTDELETE");
 
 // 액션 생성자
-export const postopen = createAction(POSTOPEN);
-export const postclose = createAction(POSTCLOSE);
 
 // action creator function
 export const changePostFiled = createAction(
@@ -140,16 +134,6 @@ export function* postSaga() {
 // 리듀서
 const post = handleActions(
   {
-    [POSTOPEN]: (state) => ({
-      ...state,
-      ispostopen: true,
-    }),
-
-    [POSTCLOSE]: (state) => ({
-      ...state,
-      ispostopen: false,
-    }),
-
     [POSTLOAD_SUCCESS]: (state, { payload }) => ({
       ...state,
       getpost: payload.getpost,

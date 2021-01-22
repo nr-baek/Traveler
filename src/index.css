@@ -16,6 +16,12 @@ code {
   min-height: 100%;
 }
 
+#modal {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
 html {
   height: 100%;
   font-size: 15px;

@@ -28,6 +28,7 @@ const initialState = {
 // 액션 타입 정의
 const CHANGE_FIELD = "auth/CHANGE_FIELD";
 const INITIALIZE_FORM = "auth/INITIALIZE_FORM";
+const LOGOUT = "auth/LOGOUT";
 
 // saga 액션 타입 정의
 const [REGISTER, REGISTER_SUCCESS, REGISTER_FAILURE] = createRequestActionTypes(
@@ -62,6 +63,8 @@ export const register = createAction(
     nickname,
   })
 );
+
+export const logout = createAction(LOGOUT);
 
 // 사가 생성
 const registerSaga = createRegisterSaga(REGISTER);
@@ -105,6 +108,10 @@ const auth = handleActions(
       ...state,
       token: null,
       loginCheck,
+    }),
+    // 로그 아웃
+    [LOGOUT]: (state) => ({
+      state: initialState,
     }),
   },
   initialState
