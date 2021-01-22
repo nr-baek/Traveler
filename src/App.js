@@ -10,6 +10,7 @@ import { Provider } from "react-redux";
 import { ErrorBoundary } from "react-error-boundary";
 import store from "./redux/store";
 import MyPage from "./pages/MyPage";
+import MapPage from "./pages/MapPage";
 
 // redux-persist 사용
 import { PersistGate } from "redux-persist/integration/react";
@@ -39,6 +40,7 @@ function App() {
             <Route component={RegisterPage} path="/register" />
             <Route component={PosterPage} path="/poster" />
             <Route component={MyPage} path="/mypage" />
+            <Route component={MapPage} path="/map" />
             <Route component={HomePage} path={["/"]} exact />
             <Route component={NotFoundPage} />
           </Switch>

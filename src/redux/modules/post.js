@@ -22,9 +22,6 @@ const INITIALIZE_POST_FORM = "post/INITIALIZE_POST_FORM";
 const INITIALIZE_POST_DESCRIPTION = "post/INITIALIZE_POST_CONTEXT";
 // description
 // 액션 타입 정의
-const POSTOPEN = "post/POSTOPEN";
-const POSTCLOSE = "post/POSTCLOSE";
-
 const INITIALIZE_MYPOST = "post/INITIALIZE_MYPOST";
 
 // 사가 액션 타입 정의
@@ -45,8 +42,6 @@ const [
 ] = createRequestActionTypes("post/POSTDELETE");
 
 // 액션 생성자
-export const postopen = createAction(POSTOPEN);
-export const postclose = createAction(POSTCLOSE);
 
 // action creator function
 export const changePostFiled = createAction(
@@ -150,16 +145,6 @@ export function* postSaga() {
 // 리듀서
 const post = handleActions(
   {
-    [POSTOPEN]: (state) => ({
-      ...state,
-      ispostopen: true,
-    }),
-
-    [POSTCLOSE]: (state) => ({
-      ...state,
-      ispostopen: false,
-    }),
-
     [POSTLOAD_SUCCESS]: (state, { payload }) => ({
       ...state,
       getpost: payload.getpost,

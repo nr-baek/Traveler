@@ -15,7 +15,6 @@ const H2 = styled.h2`
 
 const Home = () => {
   const token = useSelector((state) => state.auth.token);
-  console.log(token);
   if (token === null) {
     return <Redirect to="/login" />;
   }

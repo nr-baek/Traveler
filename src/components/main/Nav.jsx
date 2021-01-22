@@ -5,9 +5,11 @@ import {
   FileAddOutlined,
   UserOutlined,
   EnvironmentOutlined,
+  ExportOutlined,
 } from "@ant-design/icons";
-import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { Link, withRouter } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from '../../redux/modules/auth';
 
 const StyledNav = styled.nav`
   width: 200px;
@@ -20,7 +22,15 @@ const StyledNav = styled.nav`
   padding: 40px 20px;
   ul {
     width: 100%;
+    margin: 0;
   }
+  li:first-child {
+    border-top: 1px solid #eee;
+  }
+  li:last-child {
+    border-bottom: 1px solid #eee;
+  }
+  
   .welcomeMsg {
     font-size: 1.4rem;
     margin: 10px 0 0 0;
@@ -30,7 +40,6 @@ const StyledNav = styled.nav`
   }
   .welcomeBox {
     text-align: center;
-    border-bottom: 1px solid #eee;
     padding: 20px;
     color: #333;
     p {
@@ -68,6 +77,10 @@ const StyledNav = styled.nav`
       transition: background-color 0.3s, color 0.3s;
     }
   }
+  .logOut {
+    width: 100%;
+    margin-top: 40px;
+  }
 `;
 
 const UserMark = styled.div`
@@ -83,11 +96,16 @@ const UserMark = styled.div`
   margin: 5px 0;
 `;
 
-const Nav = () => {
+const Nav = ({ history }) => {
 
   const { nickname }  = useSelector(({ auth }) => ({
     nickname: auth.nickname,
-  }))
+  }));
+
+  const logOut = async () => {
+    await window.localStorage.removeItem('persist:root');
+    await history.push('/login');
+  }
 
   return (
     <StyledNav>
@@ -124,8 +142,14 @@ const Nav = () => {
           </Link>
         </li>
       </ul>
+      <div className="logOut">
+        <Link onClick={logOut} className="navBtn" to="/login">
+          <ExportOutlined className="navIcon" />
+          Log out
+        </Link>
+      </div>
     </StyledNav>
   );
 };
 
-export default Nav;
+export default withRouter(Nav);

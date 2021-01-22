@@ -21,6 +21,7 @@ const MainTemplateContainer = styled.div`
     background: #f6f5fa;
   }
   .main {
+    position: relative;
     width: 900px;
     height: 640px;
     float: right;
