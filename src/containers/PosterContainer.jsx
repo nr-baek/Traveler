@@ -31,58 +31,7 @@ const PosterContainer = ({ history }) => {
   const context = useSelector((state) => state.post.setPost.context);
   const dispatch = useDispatch();
   const [startDate, endDate] = date;
-  // const onChange = (e) => {
-  //   const { name, value } = e.target;
-  //   dispatch(
-  //     changePostFiled({
-  //       form: "setPost",
-  //       key: name,
-  //       value,
-  //     })
-  //   );
-  // };
-  // const onRadioChange = (e) => {
-  //   const { value, checked } = e.target;
-  //   dispatch(
-  //     initializePostRadioBox({
-  //       setPost: "setPost",
-  //       type: "partyType",
-  //     })
-  //   );
-  //   dispatch(
-  //     checkPostFiled({
-  //       form: "setPost",
-  //       value,
-  //       checked,
-  //     })
-  //   );
-  // };
-  // const onListAdd = () => {
-  //   if (desc === "") return;
-  //   const List = [];
-  //   List.push(desc);
-  //   console.log(List);
-  //   // 새로운 배열 state를 만드는 액션을 보낸다.
-  //   dispatch(contextList(List));
-  //   // desc redux state를 초기화 한다.
-  //   dispatch(initializePostDescription());
-  // };
-  // const onSubmit = (e) => {
-  //   if (e.keyCode === 13) return;
-  //   e.preventDefault();
-  //   dispatch(
-  //     postadd({
-  //       title,
-  //       writer,
-  //       travelType,
-  //       startDate,
-  //       endDate,
-  //       days,
-  //       context,
-  //     })
-  //   );
-  //   history.push("/");
-  // };
+
   const getType = (type) => {
     for (const boolean in type) {
       // console.log(`${travelType}: ${type[travelType]}`);
@@ -162,6 +111,7 @@ const PosterContainer = ({ history }) => {
           context,
         })
       );
+
       dispatch(initializePostForm("setPost"));
     },
     [dispatch, title, writer, travelType, startDate, endDate, days, context]
@@ -171,6 +121,7 @@ const PosterContainer = ({ history }) => {
   }, [dispatch]);
   return (
     <Poster
+      history={history}
       title={title}
       partyType={partyType}
       desc={desc}

@@ -3,8 +3,6 @@ import { DatePicker, Space, Modal } from "antd";
 import styled from "styled-components";
 import "antd/dist/antd.css";
 import { CheckSquareOutlined, PlusCircleOutlined } from "@ant-design/icons";
-import { postadd } from "../redux/modules/post";
-import { useDispatch, useSelector } from "react-redux";
 const PosterTemp = styled.div`
   .container {
     display: flex;
@@ -170,14 +168,8 @@ const PosterTemp = styled.div`
     font-size: 1rem;
     padding-left: 3rem;
   }
-  /* .add-list-btn {
-    background: black;
-  } */
 `;
-// const StyledButton = styled(CheckSquareOutlined)`
-//   background: black;
-//   outline: none;
-// `;
+
 const Poster = ({
   title,
   partyType,
@@ -188,15 +180,20 @@ const Poster = ({
   onRadioChange,
   onListAdd,
   onSubmit,
+  history,
 }) => {
   const { RangePicker } = DatePicker;
   const [isModalVisible, setIsModalVisible] = useState(false);
+
   const showModal = () => {
     setIsModalVisible(true);
   };
+
   const handleOk = () => {
     setIsModalVisible(false);
+    history.push("/");
   };
+
   const handleCancel = () => {
     setIsModalVisible(false);
   };
@@ -275,7 +272,7 @@ const Poster = ({
               onOk={handleOk}
               onCancel={handleCancel}
             >
-              <p>Post Complete</p>
+              <p>Go to Home Page?</p>
             </Modal>
           </form>
         </div>

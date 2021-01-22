@@ -8,7 +8,7 @@ export const postLoad = ({ token }) => {
 export const getIdLength = () => client.get(`http://localhost:4000/posts/`);
 
 export const addPost = ({
-  data,
+  length,
   writer,
   title,
   travelType,
@@ -18,7 +18,7 @@ export const addPost = ({
   context,
 }) =>
   client.post("http://localhost:4000/posts/", {
-    id: data,
+    id: length,
     writer,
     title,
     travelType,

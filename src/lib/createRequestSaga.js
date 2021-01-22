@@ -1,12 +1,14 @@
-import { call, delay, put, select } from "redux-saga/effects";
+import { call, delay, put, select, take } from "redux-saga/effects";
 import { finishLoading, startLoading } from "../redux/modules/loading";
 import * as authAPI from "./api/auth";
 import * as postAPI from "./api/post";
+
 export const createRequestActionTypes = (type) => {
-  const SUCCESS = `${type}_SUCCESS`;
+  const SUCCESS = `${type}_SUCCESS`; // post/POSTDELETE_SUCCESS
   const FAILURE = `${type}_FAILURE`;
   return [type, SUCCESS, FAILURE];
 };
+
 // 회원가입 사가
 export function createRegisterSaga(type) {
   const SUCCESS = `${type}_SUCCESS`;
@@ -145,6 +147,7 @@ export function createPostLoadingSaga(type) {
 
 // add page saga function
 export function createPostAddSaga(type) {
+  //post/POSTADD
   const SUCCESS = `${type}_SUCCESS`;
   const FAILURE = `${type}_FAILURE`;
 
@@ -163,17 +166,14 @@ export function createPostAddSaga(type) {
 
     try {
       const res = yield call(postAPI.getIdLength);
-      const data = res.data.length + 1;
-
-      yield put({
-        type: SUCCESS,
-        payload: {
-          postLoad: true,
-        },
-      });
+      const data = yield res.data;
+      const userIdLength = data.map((v) => v.id);
+      const maxLength = Math.max(...userIdLength) + 1;
+      console.log("gkdl");
+      yield delay(200);
 
       yield call(postAPI.addPost, {
-        data,
+        maxLength,
         writer,
         title,
         travelType,
@@ -182,12 +182,16 @@ export function createPostAddSaga(type) {
         days,
         context,
       });
+
+      console.log("하이");
+      yield put({
+        type: SUCCESS,
+        payload: true,
+      });
     } catch (error) {
       yield put({
         type: FAILURE,
-        payload: {
-          postloading: false,
-        },
+        payload: false,
       });
       console.log(error);
     }

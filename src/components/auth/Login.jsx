@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
-import SignInButton from '../common/Button';
-import StyledInput from '../common/StyledInput';
-import { withRouter } from 'react-router-dom';
+import React, { useState } from "react";
+import styled from "styled-components";
+import SignInButton from "../common/Button";
+import StyledInput from "../common/StyledInput";
+import { withRouter } from "react-router-dom";
 
 const StyledContainer = styled.div`
   h2 {
@@ -13,6 +13,7 @@ const StyledContainer = styled.div`
     padding: 1rem 0;
     float: left;
     color: #666;
+    margin-top: 20px;
   }
 `;
 
@@ -53,13 +54,13 @@ const Login = ({ form, error, onChange, onSubmit, history }) => {
   function onClick() {
     setclicked(true);
     setTimeout(() => {
-      history.push('/register');
+      history.push("/register");
     }, 200);
   }
   return (
     <StyledContainer
       className={
-        'container showSignin ' + (isclickedSignup ? 'noneSignin' : '')
+        "container showSignin " + (isclickedSignup ? "noneSignin" : "")
       }
     >
       <form onSubmit={onSubmit}>

@@ -8,29 +8,24 @@ import {
 import { takeLatest } from "redux-saga/effects";
 import produce from "immer";
 
-// action type 정의
+// event action type 정의
 const CHANGE_POST_FIELD = "post/CHANGE_POST_FIELD";
 const CHECK_POST_FIELD = "post/CHECK_POST_FIELD";
-
 const CHANGE_POST_DATE = "post/CHANGE_POST_DATE";
 const CHANGE_POST_DAY = "post/CHANGE_POST_DAY";
-
 const CONTEXT_LIST = "post/CONTEXT_LIST";
 
+// reset action type 정의
 const INITIALIZE_POST_RADIOBOX = "post/INITIALIZE_POST_RADIOBOX";
 const INITIALIZE_POST_FORM = "post/INITIALIZE_POST_FORM";
 const INITIALIZE_POST_DESCRIPTION = "post/INITIALIZE_POST_CONTEXT";
-// description
-// 액션 타입 정의
 const INITIALIZE_MYPOST = "post/INITIALIZE_MYPOST";
 
-// 사가 액션 타입 정의
-// create action
+// saga action type 정의
 const [POSTADD, POSTADD_SUCCESS, POSTADD_FAILURE] = createRequestActionTypes(
   "post/POSTADD"
 );
 
-// read action
 const [POSTLOAD, POSTLOAD_SUCCESS, POSTLOAD_FAILURE] = createRequestActionTypes(
   "post/POSTLOAD"
 );
@@ -41,9 +36,7 @@ const [
   POSTDELETE_FAILURE,
 ] = createRequestActionTypes("post/POSTDELETE");
 
-// 액션 생성자
-
-// action creator function
+// event state action creator function
 export const changePostFiled = createAction(
   CHANGE_POST_FIELD,
   ({ form, key, value }) => ({
@@ -68,6 +61,7 @@ export const changePostDay = createAction(CHANGE_POST_DAY, (state) => state);
 
 export const contextList = createAction(CONTEXT_LIST, (state) => state);
 
+// reset state action creator function
 export const initializePostDescription = createAction(
   INITIALIZE_POST_DESCRIPTION
 );
@@ -84,7 +78,6 @@ export const initializePostForm = createAction(INITIALIZE_POST_FORM);
 
 export const initializeMypost = createAction(INITIALIZE_MYPOST);
 
-// 사가 액션 생성자
 // create saga action creator
 export const postadd = createAction(
   POSTADD,
@@ -96,10 +89,9 @@ export const postadd = createAction(
     endDate,
     days,
     context,
-  })
+  }) // action
 );
 
-// read saga action creator
 export const postload = createAction(POSTLOAD, (token) => ({
   token,
 }));
@@ -109,6 +101,7 @@ export const postdelete = createAction(POSTDELETE, (id, posts) => ({
   posts,
 }));
 
+// initialState
 const initialState = {
   getpost: [],
   setPost: {
@@ -128,11 +121,8 @@ const initialState = {
   ispostopen: false,
 };
 
-// 사가 생성
-// create saga 생성
-const postAddSaga = createPostAddSaga(POSTADD);
-
-// read saga 생성
+// CRUD saga 생성
+const postAddSaga = createPostAddSaga(POSTADD); // post/POSTADD
 const postloadSaga = createPostLoadingSaga(POSTLOAD);
 const postdeleteSage = createPostDeleteSage(POSTDELETE);
 
@@ -145,23 +135,7 @@ export function* postSaga() {
 // 리듀서
 const post = handleActions(
   {
-    [POSTLOAD_SUCCESS]: (state, { payload }) => ({
-      ...state,
-      getpost: payload.getpost,
-      postloading: payload.postloading,
-    }),
-
-    [POSTLOAD_FAILURE]: (state, { payload: { getpost, postloading } }) => ({
-      ...state,
-      getpost,
-      postloading,
-    }),
-
-    [POSTDELETE]: (state, { payload }) => ({
-      ...state,
-      getpost: payload.posts,
-    }),
-
+    // event reducer
     [CHANGE_POST_FIELD]: (state, { payload: { form, key, value } }) =>
       produce(state, (draft) => {
         draft[form][key] = value;
@@ -183,14 +157,64 @@ const post = handleActions(
       }),
 
     [CONTEXT_LIST]: (state, action) => {
-      console.log(action);
+      // console.log(action);
       return produce(state, (draft) => {
         draft.setPost.context = [...draft.setPost.context, ...action.payload];
       });
     },
 
+    // create reducer
+    [POSTADD_SUCCESS]: (state, { payload: postloading }) => {
+      // console.log(postloading);
+      return {
+        ...state,
+        postloading,
+      };
+    },
+
+    // { payload: postloading }
+    // ({
+    //   ...state,
+    //   postloading,
+    // }),
+
+    [POSTADD_FAILURE]: (state, { payload: postloading }) => ({
+      ...state,
+      postloading,
+    }),
+
+    // read reducer
+    [POSTLOAD_SUCCESS]: (state, { payload }) => ({
+      ...state,
+      getpost: payload.getpost,
+      postloading: payload.postloading,
+    }),
+
+    [POSTLOAD_FAILURE]: (state, { payload: { getpost, postloading } }) => ({
+      ...state,
+      getpost,
+      postloading,
+    }),
+
+    // delete reducer
+    [POSTDELETE]: (state, { payload }) => ({
+      ...state,
+      getpost: payload.posts,
+    }),
+
+    [POSTDELETE_SUCCESS]: (state, { payload: { postloading } }) => ({
+      ...state,
+      postloading,
+    }),
+
+    [POSTDELETE_FAILURE]: (state, { payload: { postloading } }) => ({
+      ...state,
+      postloading,
+    }),
+
+    // reset reducer
     [INITIALIZE_POST_DESCRIPTION]: (state) => {
-      console.log(state);
+      // console.log(state);
       return produce(state, (draft) => {
         draft.setPost.desc = "";
       });
@@ -207,37 +231,6 @@ const post = handleActions(
       postloading: false,
     }),
 
-    [POSTADD_SUCCESS]: (state, { payload: postloading }) => ({
-      ...state,
-      postloading,
-    }),
-
-    [POSTADD_FAILURE]: (state, { payload: postloading }) => ({
-      ...state,
-      postloading,
-    }),
-
-    [POSTLOAD_SUCCESS]: (state, { payload }) => ({
-      ...state,
-      getpost: payload.getpost,
-      postloading: payload.postloading,
-    }),
-
-    [POSTLOAD_FAILURE]: (state, { payload: { getpost, postloading } }) => ({
-      ...state,
-      getpost,
-      postloading,
-    }),
-
-    [POSTDELETE_SUCCESS]: (state, { payload: { postloading } }) => ({
-      ...state,
-      postloading,
-    }),
-
-    [POSTDELETE_FAILURE]: (state, { payload: { postloading } }) => ({
-      ...state,
-      postloading,
-    }),
     [INITIALIZE_MYPOST]: (state) => ({
       ...state,
       getpost: [],
