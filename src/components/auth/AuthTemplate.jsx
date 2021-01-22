@@ -46,6 +46,7 @@ const TemplateLeftBox = styled.div`
 
   h1 {
     font-size: 2rem;
+    color: #fff;
     margin: 0;
   }
   p {

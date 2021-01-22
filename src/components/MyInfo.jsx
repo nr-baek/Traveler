@@ -76,7 +76,7 @@ const MyInfo = ({ removePost, posts, id, title, startDate, endDate }) => {
     console.log("hide");
   };
   // const showkPostDays = posts.filter(post => post.id === id)[0].days;
-  const showPostDescs = posts.filter((post) => post.id === id)[0].desc;
+  const showPostDescs = posts.filter((post) => post.id === id)[0].context;
   // console.log(showkPostDays);
   console.log(showPostDescs);
 

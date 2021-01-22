@@ -13,31 +13,24 @@ import {
   initializePostRadioBox,
   initializePostForm,
 } from "../redux/modules/post";
-
 import Poster from "../components/Poster";
-
 const PosterContainer = ({ history }) => {
   const { title, desc } = useSelector(({ post }) => ({
     title: post.setPost.title,
     desc: post.setPost.desc,
   }));
-
   const partyType = useSelector(({ post }) => ({
     alone: post.setPost.partyType.alone,
     friend: post.setPost.partyType.friend,
     family: post.setPost.partyType.family,
     couple: post.setPost.partyType.couple,
   }));
-
   const writer = useSelector((state) => state.auth.token);
   const date = useSelector((state) => state.post.setPost.date);
   const days = useSelector((state) => state.post.setPost.days);
   const context = useSelector((state) => state.post.setPost.context);
-
   const dispatch = useDispatch();
-
   const [startDate, endDate] = date;
-
   // const onChange = (e) => {
   //   const { name, value } = e.target;
   //   dispatch(
@@ -48,17 +41,14 @@ const PosterContainer = ({ history }) => {
   //     })
   //   );
   // };
-
   // const onRadioChange = (e) => {
   //   const { value, checked } = e.target;
-
   //   dispatch(
   //     initializePostRadioBox({
   //       setPost: "setPost",
   //       type: "partyType",
   //     })
   //   );
-
   //   dispatch(
   //     checkPostFiled({
   //       form: "setPost",
@@ -67,20 +57,16 @@ const PosterContainer = ({ history }) => {
   //     })
   //   );
   // };
-
   // const onListAdd = () => {
   //   if (desc === "") return;
   //   const List = [];
   //   List.push(desc);
   //   console.log(List);
-
   //   // 새로운 배열 state를 만드는 액션을 보낸다.
   //   dispatch(contextList(List));
-
   //   // desc redux state를 초기화 한다.
   //   dispatch(initializePostDescription());
   // };
-
   // const onSubmit = (e) => {
   //   if (e.keyCode === 13) return;
   //   e.preventDefault();
@@ -97,7 +83,6 @@ const PosterContainer = ({ history }) => {
   //   );
   //   history.push("/");
   // };
-
   const getType = (type) => {
     for (const boolean in type) {
       // console.log(`${travelType}: ${type[travelType]}`);
@@ -106,9 +91,7 @@ const PosterContainer = ({ history }) => {
       }
     }
   };
-
   const travelType = getType(partyType);
-
   const onChange = useCallback(
     (e) => {
       if (e.keyCode === 13) return;
@@ -123,31 +106,24 @@ const PosterContainer = ({ history }) => {
     },
     [dispatch]
   );
-
   // useCallback 적용하기
   function onSelectChange(_, dateStrings) {
     dispatch(changePostDate(dateStrings)); // [start, end]
-
     const startDay = moment(dateStrings[0]);
     const endDay = moment(dateStrings[1]);
-
     const days = moment.duration(endDay.diff(startDay)).asDays() + 1 + "";
-
     dispatch(changePostDay(days));
   }
-
   const onRadioChange = useCallback(
     (e) => {
       if (e.keyCode === 13) return;
       const { value, checked } = e.target;
-
       dispatch(
         initializePostRadioBox({
           setPost: "setPost",
           type: "partyType",
         })
       );
-
       dispatch(
         checkPostFiled({
           form: "setPost",
@@ -158,7 +134,6 @@ const PosterContainer = ({ history }) => {
     },
     [dispatch]
   );
-
   const onListAdd = useCallback(
     (e) => {
       if (desc === "") return;
@@ -166,16 +141,13 @@ const PosterContainer = ({ history }) => {
       const List = [];
       List.push(desc);
       console.log(List);
-
       // 새로운 배열 state를 만드는 액션을 보낸다.
       dispatch(contextList(List));
-
       // desc redux state를 초기화 한다.
       dispatch(initializePostDescription());
     },
     [dispatch, desc]
   );
-
   const onSubmit = useCallback(
     (e) => {
       e.preventDefault();
@@ -190,25 +162,13 @@ const PosterContainer = ({ history }) => {
           context,
         })
       );
-      history.push("/");
+      dispatch(initializePostForm("setPost"));
     },
-    [
-      dispatch,
-      history,
-      title,
-      writer,
-      travelType,
-      startDate,
-      endDate,
-      days,
-      context,
-    ]
+    [dispatch, title, writer, travelType, startDate, endDate, days, context]
   );
-
   useEffect(() => {
     dispatch(initializePostForm("setPost"));
   }, [dispatch]);
-
   return (
     <Poster
       title={title}
@@ -223,5 +183,4 @@ const PosterContainer = ({ history }) => {
     />
   );
 };
-
 export default withRouter(PosterContainer);

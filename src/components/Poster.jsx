@@ -1,9 +1,10 @@
-import React from "react";
-import { DatePicker, Space } from "antd";
+import React, { useState } from "react";
+import { DatePicker, Space, Modal } from "antd";
 import styled from "styled-components";
 import "antd/dist/antd.css";
 import { CheckSquareOutlined, PlusCircleOutlined } from "@ant-design/icons";
-
+import { postadd } from "../redux/modules/post";
+import { useDispatch, useSelector } from "react-redux";
 const PosterTemp = styled.div`
   .container {
     display: flex;
@@ -125,7 +126,6 @@ const PosterTemp = styled.div`
     overflow: hidden;
     margin: -1px;
   }
-
   .show-container {
     height: 170px;
     width: 100%;
@@ -174,12 +174,10 @@ const PosterTemp = styled.div`
     background: black;
   } */
 `;
-
 // const StyledButton = styled(CheckSquareOutlined)`
 //   background: black;
 //   outline: none;
 // `;
-
 const Poster = ({
   title,
   partyType,
@@ -192,7 +190,16 @@ const Poster = ({
   onSubmit,
 }) => {
   const { RangePicker } = DatePicker;
-
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const showModal = () => {
+    setIsModalVisible(true);
+  };
+  const handleOk = () => {
+    setIsModalVisible(false);
+  };
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
   return (
     <PosterTemp>
       <div className="container">
@@ -206,7 +213,7 @@ const Poster = ({
                 placeholder="Tell me the name of your trip"
                 value={title}
                 onChange={onChange}
-                maxLength="16"
+                // maxLength="16"
                 autoComplete="off"
               />
             </div>
@@ -259,10 +266,17 @@ const Poster = ({
                 <label htmlFor="coupleId">Couple</label>
               </div>
             </div>
-
-            <button className="poster-btn">
+            <button className="poster-btn" onClick={showModal}>
               + <span>Add Post</span>
             </button>
+            <Modal
+              title="Basic Modal"
+              visible={isModalVisible}
+              onOk={handleOk}
+              onCancel={handleCancel}
+            >
+              <p>Post Complete</p>
+            </Modal>
           </form>
         </div>
         <div className="list-container">
@@ -280,7 +294,6 @@ const Poster = ({
             className="add-list-btn"
             style={{
               outline: "none",
-
               // border: "1px solid lightgray",
             }}
             onClick={onListAdd}
@@ -309,5 +322,4 @@ const Poster = ({
     </PosterTemp>
   );
 };
-
 export default Poster;

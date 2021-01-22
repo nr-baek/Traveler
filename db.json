@@ -9,119 +9,17 @@
       "id": "ehdcks",
       "password": "1234",
       "nickname": "1234"
-    },
-    {
-      "id": "parkmoen",
-      "password": "1234",
-      "nickname": "markLee"
     }
   ],
   "posts": [
     {
-      "id": 1,
-      "writer": "nara",
-      "title": "한슬이와 나라의 연남동 투어",
-      "partyType": "friend",
-      "startDate": "2021-04-01",
-      "endDate": "2021-04-01",
-      "days": "1",
-      "context": [
-        "1일차 연남동 맛집 방문"
-      ]
-    },
-    {
       "id": 2,
       "writer": "nara",
-      "title": "한슬이와 나라의 연남동 투어",
-      "partyType": "friend",
-      "startDate": "2021-04-01",
-      "endDate": "2021-04-01",
-      "days": "1",
-      "context": [
-        "1일차 연남동 맛집 방문"
-      ]
-    },
-    {
-      "id": 3,
-      "writer": "nara",
-      "title": "한슬이와 나라의 연남동 투어",
-      "partyType": "friend",
-      "startDate": "2021-04-01",
-      "endDate": "2021-04-01",
-      "days": "1",
-      "context": [
-        "1일차 연남동 맛집 방문"
-      ]
-    },
-    {
-      "id": 4,
-      "writer": "nara",
-      "title": "한슬이와 나라의 한강 나들이",
-      "partyType": "couple",
-      "startDate": "2021-03-22",
-      "endDate": "2021-03-22",
-      "days": "1",
-      "context": [
-        "1일차 한강 산책"
-      ]
-    },
-    {
-      "id": 5,
-      "writer": "nara",
-      "title": "한슬이와 나라의 동대문 쇼핑",
-      "partyType": "family",
-      "startDate": "2021-02-11",
-      "endDate": "2021-02-11",
-      "days": "1",
-      "context": [
-        "1일차 DDP 방문"
-      ]
-    },
-    {
-      "id": 6,
-      "writer": "nara",
-      "title": "한슬이와 나라의 홍대 마실",
-      "partyType": "family",
-      "startDate": "2021-05-27",
-      "endDate": "2021-05-27",
-      "days": "1",
-      "context": [
-        "1일차 홍대 버스킹 구경"
-      ]
-    },
-    {
-      "id": 7,
-      "writer": "nara",
-      "title": "한슬이와 나라의 대구 여행",
-      "partyType": "alone",
-      "startDate": "2021-09-14",
-      "endDate": "2021-09-14",
-      "days": "1",
-      "context": [
-        "1일차 대구 맛집 투어"
-      ]
-    },
-    {
-      "id": 8,
-      "writer": "nara",
-      "title": "한슬이와 나라의 경주 여행",
-      "partyType": "couple",
-      "startDate": "2021-01-17",
-      "endDate": "2021-01-18",
-      "days": "2",
-      "context": [
-        "1일차 불국사 방문",
-        "2일차 첨성대 방문"
-      ]
-    },
-    {
-      "id": 9,
-      "writer": "nara",
-      "title": "한슬이와 나라의 제주도 여행",
-      "partyType": "family",
-      "startDate": "2021-10-20",
-      "endDate": "2021-10-22",
-      "days": "3",
+      "title": "동찬이와 울릉도 여행",
+      "travelType": "family",
+      "startDate": "2020-12-30",
+      "endDate": "2021-01-02",
+      "days": "4",
       "context": [
         "1일차 한라산 등반",
         "2일차 제주도 맛집 투어",
@@ -129,88 +27,70 @@
       ]
     },
     {
-      "id": 10,
+      "id": 3,
       "writer": "nara",
-      "title": "한슬이와 나라의 인천 여행",
-      "partyType": "friend",
-      "startDate": "2021-08-08",
-      "endDate": "2021-08-09",
+      "title": "나홀로 독도 여행 고독하고 외롭게",
+      "travelType": "alone",
+      "startDate": "2021-01-09",
+      "endDate": "2021-01-10",
       "days": "2",
       "context": [
-        "1일차 을왕리 해수욕장 방문",
-        "2일차 송도 현대 아울렛 쇼핑"
+        "1일차 한라산 등반",
+        "2일차 제주도 맛집 투어",
+        "3일차 우도 방문"
       ]
     },
     {
-      "id": 11,
+      "id": 4,
       "writer": "nara",
-      "title": "한슬이와 나라의 양양 서핑",
-      "partyType": "alone",
-      "startDate": "2021-09-13",
-      "endDate": "2021-09-14",
-      "days": "2",
-      "context": [
-        "1일차 양양 서피비치 방문 및 서핑",
-        "2일차 양양 명소 방문"
-      ]
-    },
-    {
-      "id": 12,
-      "writer": "parkmoen",
-      "title": "asdfasdf",
-      "travelType": "family",
-      "startDate": "2021-02-02",
+      "title": "명재가 간다간다 뿅간다",
+      "travelType": "couple",
+      "startDate": "2021-01-29",
       "endDate": "2021-02-03",
-      "days": "2",
+      "days": "6",
       "context": [
-        "adsfasdf",
-        "adsfasf"
+        "1일차 한라산 등반",
+        "2일차 제주도 맛집 투어",
+        "3일차 우도 방문"
       ]
     },
     {
-      "id": 13,
-      "writer": "parkmoen",
-      "title": "asdfasdf",
+      "id": 5,
+      "writer": "nara",
+      "title": "판문점 견학",
+      "travelType": "couple",
+      "startDate": "2021-01-19",
+      "endDate": "2021-01-25",
+      "days": "1",
+      "context": [
+        "1일차 한라산 등반",
+        "2일차 제주도 맛집 투어",
+        "3일차 우도 방문"
+      ]
+    },
+    {
+      "id": 7,
+      "writer": "nara",
+      "title": "17기가 간다",
       "travelType": "friend",
-      "startDate": "2021-02-18",
-      "endDate": "2021-02-20",
+      "startDate": "2021-01-26",
+      "endDate": "2021-01-28",
       "days": "3",
       "context": [
-        "sds"
+        "동기들과 함께"
       ]
     },
     {
-      "id": 14,
-      "writer": "parkmoen",
-      "title": "",
-      "days": "",
-      "context": []
-    },
-    {
-      "id": 15,
-      "writer": "parkmoen",
-      "title": "",
-      "days": "",
+      "id": 8,
+      "writer": "nara",
+      "title": "박명재조장",
+      "travelType": "alone",
+      "startDate": "2021-01-04",
+      "endDate": "2021-01-08",
+      "days": "5",
       "context": [
-        "adsfsadf",
-        "sadfdsaf",
-        "dsafdasf",
-        "asdfasf"
+        "재연이 마이 아프다"
       ]
-    },
-    {
-      "id": 16,
-      "writer": "parkmoen",
-      "title": "",
-      "days": "",
-      "context": []
-    },
-    {
-      "id": 17,
-      "writer": "parkmoen",
-      "title": "",
-      "days": "",
-      "context": []
     }
   ]
 }

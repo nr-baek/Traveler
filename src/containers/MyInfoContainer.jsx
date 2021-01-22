@@ -2,7 +2,7 @@ import React from "react";
 import MyInfo from "../components/MyInfo";
 import { Empty } from "antd";
 import { useDispatch, useSelector } from "react-redux";
-import { postclose, postdelete, postopen } from "../redux/modules/post";
+import { postdelete} from "../redux/modules/post";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
@@ -84,23 +84,12 @@ const MyInfoContainer = () => {
     );
   };
 
-  const openPost = () => {
-    dispatch(postopen());
-    console.log("open");
-  };
-
-  const closePost = () => {
-    dispatch(postclose());
-    console.log("close");
-  };
 
   return (
     <InfoContainer>
       {posts.length ? (
         posts.map((post) => (
           <MyInfo
-            openPost={openPost}
-            closePost={closePost}
             removePost={removePost}
             id={post.id}
             key={post.id}
