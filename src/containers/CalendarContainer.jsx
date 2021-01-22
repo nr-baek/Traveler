@@ -3,8 +3,8 @@ import Calendar from "../components/Calendar";
 import moment from "moment";
 import { useDispatch, useSelector } from "react-redux";
 import { initializeMypost, postload } from "../redux/modules/post";
-import { LoadingOutlined } from '@ant-design/icons';
-import LoadingBox from '../components/common/LoadingBox';
+import { LoadingOutlined } from "@ant-design/icons";
+import LoadingBox from "../components/common/LoadingBox";
 
 function trasformDate(date) {
   let year = date.getFullYear();
@@ -45,7 +45,7 @@ const CalendarContainer = () => {
   //     desc: ["1일차 관악산 등반"],
   //   },
   // ];
-  const { posts, postloading, token } =  useSelector(({ post, auth }) => ({
+  const { posts, postloading, token } = useSelector(({ post, auth }) => ({
     posts: post.getpost,
     postloading: post.postloading,
     token: auth.token,
@@ -56,7 +56,7 @@ const CalendarContainer = () => {
   useEffect(() => {
     dispatch(postload(token));
     dispatch(initializeMypost());
-  },[dispatch, token]);
+  }, [dispatch, token]);
 
   function markingDays(currDay) {
     const curr = currDay.format("YYYY-MM-DD");
@@ -82,23 +82,35 @@ const CalendarContainer = () => {
           // console.log("curr과 logday와 i,j", curr, trasformDate(logDay), i, j);
           // console.log(curr);
           if (j === 0) {
-            if (+posts[i].days === 1) {
+            if (+posts[i].days === 1 || currDay.day() === 6) {
               console.log("oneday");
               console.log(curr);
+
               return (
-                <div className={"marking oneday " + posts[i].partyType}>
+                <div
+                  className={"marking oneday " + posts[i].travelType}
+                  title={posts[i].title}
+                >
                   {posts[i].title}
                 </div>
               );
             }
             return (
-              <div className={"marking startday " + posts[i].partyType}>
+              <div className={"marking startday " + posts[i].travelType}>
+                {posts[i].title}
+              </div>
+            );
+          }
+          console.log(currDay.day() === 0, j < posts[i].days - 1);
+          if (currDay.day() === 0 && j < posts[i].days - 1) {
+            return (
+              <div className={"marking startday " + posts[i].travelType}>
                 {posts[i].title}
               </div>
             );
           }
           // console.log(curr, trasformDate(logDay));
-          return <div className={"marking plus " + posts[i].partyType}></div>;
+          return <div className={"marking plus " + posts[i].travelType}></div>;
         }
       }
     }
@@ -107,16 +119,19 @@ const CalendarContainer = () => {
   function changeMonth(newMonth) {
     setDate(newMonth);
   }
-  return (
-    postloading ? (
-      <Calendar date={date} changeDate={changeMonth} markingDays={markingDays} />
-    ) : 
+  return postloading ? (
+    <Calendar date={date} changeDate={changeMonth} markingDays={markingDays} />
+  ) : (
     <LoadingBox>
-      <LoadingOutlined style={{fontSize: '80px', color: '#8a60fd', filter: 'drop-shadow(0 0 0.5rem #af93fa)'}} />
+      <LoadingOutlined
+        style={{
+          fontSize: "80px",
+          color: "#8a60fd",
+          filter: "drop-shadow(0 0 0.5rem #af93fa)",
+        }}
+      />
     </LoadingBox>
-    
   );
   // return <div>hi</div>;
 };
 export default CalendarContainer;
-

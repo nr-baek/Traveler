@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { LeftOutlined, RightOutlined } from "@ant-design/icons";
+
 const CalendarForm = styled.div`
   .Calendar {
     padding: 0 20px 20px 20px;
@@ -46,7 +47,7 @@ const CalendarForm = styled.div`
       font-weight: bold;
       width: 100%;
       border-top: 1px solid #ddd;
-      padding: 10px 0;
+      padding: 6px 0;
       margin-top: 10px;
       display: flex;
       justify-content: space-around;
@@ -79,19 +80,20 @@ const CalendarForm = styled.div`
           margin-left: 5px;
         }
         .marking {
-          height: 20px;
-          font-size: 0.8rem;
+          height: 21px;
+          font-size: 0.9rem;
           color: #fff;
           position: absolute;
           font-weight: bold;
           text-indent: 5px;
+          min-width: 110px;
           /* width: 110px; */
-          white-space: nowrap;
-          overflow: hidden;
-          text-overflow: ellipsis;
         }
         .marking.oneday {
           width: 110px;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
         }
         .marking.startday {
           z-index: 100000;
