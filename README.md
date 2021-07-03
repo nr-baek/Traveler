@@ -1,70 +1,101 @@
-# Getting Started with Create React App
+# ✈️ Traveler - 여행 스케쥴러 웹 어플리케이션
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+🗓 여행 일정짜기 기능의 웹 어플리케이션입니다.
 
-## Available Scripts
+👇 Project Preview
 
-In the project directory, you can run:
+<img src="https://ifh.cc/g/PsMryN.jpg" width="800" height="480"/>
 
-### `npm start`
+## 🏈 Getting Start!
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+```markdown
+$ git clone https://github.com/nr-baek/Traveler.git
+$ npm install
+$ npm run start
+```
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+<br>
 
-### `npm test`
+## 🗓 프로젝트 기간
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+2021.01.18 ~ 2021.01.22 (1주일)
 
-### `npm run build`
+<br>
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## 🎒 기술 스택
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- HTML
+- CSS
+- JavaScript
+- React
+- Redux
+- Redux-saga
+- Styled-components
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+<br>
 
-### `npm run eject`
+## 🚀 서비스 기능
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### 1. 회원가입
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- 등록된 아이디인지 체크
+- 비밀번호입력 재확인 체크
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### 2. 로그인
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+- 아이디, 비밀번호 체크
+- 아이디, 비밀번호 일치하면 메인페이지 렌더링
+- 로그인 정보 local storage 저장
 
-## Learn More
+### 3. 메인 (스케쥴러)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- Calendar 구현(Vanilla JS)
+- 등록된 여행일정 마킹
+  - 여행 제목 표시
+  - 여행타입(나홀로, 가족, 커플, 친구)에 따른 마킹컬러 구분
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### 4. 일정 추가 페이지
 
-### Code Splitting
+- 여행 제목, 기간, 타입, 일정 리스트 등록
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### 5. 마이페이지
 
-### Analyzing the Bundle Size
+- 등록된 일정 목록 렌더링
+- 목록 클릭시 세부일정 모달창
+- 일정 삭제 기능
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+<br>
 
-### Making a Progressive Web App
+## 📌 기타
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+- [PPT](https://docs.google.com/presentation/d/1nxJytfUdV35gYwKQfvsQNPCdwkI8hXWSaBjfmqJzFks/edit?usp=sharing)
 
-### Advanced Configuration
+<br>
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+## 🧩 구성원 ✨
 
-### Deployment
+### 🧑‍💻 Front-end
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+<table>
+<tr>
+<td align="center">
+<a href="https://github.com/nr-baek"><img align="center" width="50" height="50" src="https://avatars.githubusercontent.com/u/52344355?v=4"></a>
+</td>
+<td align="center">
+<a href="https://github.com/park-moen"><img align="center" width="50" height="50" src="https://avatars.githubusercontent.com/u/57402711?v=4"></a>
+</td>
+<td align="center">
+<a href="https://github.com/dongchan-K"><img align="center" width="50" height="50" src="https://avatars.githubusercontent.com/u/67866773?v=4"></a>
+</td>
 
-### `npm run build` fails to minify
+</tr>
+<tr>
+<td align="center"> <a href="https://github.com/nr-baek">백나라</a> </td>
+<td align="center"> <a href="https://github.com/park-moen">박명재</a> </td>
+<td align="center"> <a href="https://github.com/dongchan-K">김동찬</a> </td>
+</tr>
+</table>
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+<br>
+
+<br>
