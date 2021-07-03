@@ -11,6 +11,8 @@ const MainTemplateContainer = styled.div`
   right: 0;
   bottom: 0;
   background: #e3e2ff;
+  background-size: cover;
+  background-image: url("https://images.unsplash.com/photo-1506669318200-6790d9b4c014?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1578&q=80");
   /* 콘텐츠 가운데 정렬 */
   display: flex;
   justify-content: center;
