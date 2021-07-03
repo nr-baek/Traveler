@@ -1,9 +1,9 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
-import styled from "styled-components";
 import MainTemplate from "../components/main/MainTemplate";
-import CalendarContainer from "../containers/CalendarContainer";
+import PosterContainer from "../containers/PosterContainer";
+import styled from "styled-components";
 
 const H2 = styled.h2`
   margin: 8px 0 0 30px;
@@ -13,17 +13,16 @@ const H2 = styled.h2`
   position: absolute;
 `;
 
-const Home = () => {
+const PosterPage = () => {
   const token = useSelector((state) => state.auth.token);
   if (token === null) {
     return <Redirect to="/login" />;
   }
   return (
     <MainTemplate>
-      <H2>Calendar</H2>
-      <CalendarContainer />
+      <H2>Poster</H2>
+      <PosterContainer />
     </MainTemplate>
   );
 };
-
-export default Home;
+export default PosterPage;

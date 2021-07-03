@@ -2,18 +2,95 @@
   "users": [
     {
       "id": "nara",
-      "pw": "1234",
+      "password": "1234",
       "nickname": "nara"
+    },
+    {
+      "id": "ehdcks",
+      "password": "1234",
+      "nickname": "1234"
     }
   ],
   "posts": [
     {
-      "id": "nara",
-      "title": "한슬이와 나라의 부산 여행",
-      "type": "친구",
-      "startDate": "2021-01-19",
+      "id": 2,
+      "writer": "nara",
+      "title": "동찬이와 울릉도 여행",
+      "travelType": "family",
+      "startDate": "2020-12-30",
+      "endDate": "2021-01-02",
+      "days": "4",
+      "context": [
+        "1일차 한라산 등반",
+        "2일차 제주도 맛집 투어",
+        "3일차 우도 방문"
+      ]
+    },
+    {
+      "id": 3,
+      "writer": "nara",
+      "title": "나홀로 독도 여행 고독하고 외롭게",
+      "travelType": "alone",
+      "startDate": "2021-01-09",
+      "endDate": "2021-01-10",
       "days": "2",
-      "desc": ["1일차 해운대", "2일차 수변 공원"]
+      "context": [
+        "1일차 한라산 등반",
+        "2일차 제주도 맛집 투어",
+        "3일차 우도 방문"
+      ]
+    },
+    {
+      "id": 4,
+      "writer": "nara",
+      "title": "명재가 간다간다 뿅간다",
+      "travelType": "couple",
+      "startDate": "2021-01-29",
+      "endDate": "2021-02-03",
+      "days": "6",
+      "context": [
+        "1일차 한라산 등반",
+        "2일차 제주도 맛집 투어",
+        "3일차 우도 방문"
+      ]
+    },
+    {
+      "id": 5,
+      "writer": "nara",
+      "title": "판문점 견학",
+      "travelType": "couple",
+      "startDate": "2021-01-19",
+      "endDate": "2021-01-25",
+      "days": "1",
+      "context": [
+        "1일차 한라산 등반",
+        "2일차 제주도 맛집 투어",
+        "3일차 우도 방문"
+      ]
+    },
+    {
+      "id": 7,
+      "writer": "nara",
+      "title": "17기가 간다",
+      "travelType": "friend",
+      "startDate": "2021-01-26",
+      "endDate": "2021-01-28",
+      "days": "3",
+      "context": [
+        "동기들과 함께"
+      ]
+    },
+    {
+      "id": 8,
+      "writer": "nara",
+      "title": "박명재조장",
+      "travelType": "alone",
+      "startDate": "2021-01-04",
+      "endDate": "2021-01-08",
+      "days": "5",
+      "context": [
+        "재연이 마이 아프다"
+      ]
     }
   ]
 }
