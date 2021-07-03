@@ -145,13 +145,13 @@ const PosterTemp = styled.div`
     transition: transform 0.5s;
     padding-left: 5rem;
   }
-  .show-container .show-li:hover {
+  /* .show-container .show-li:hover {
     transform: scale(1.1);
     z-index: 100;
     background-color: #e3e2ff;
     box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
     color: #999;
-  }
+  } */
   .show-container .show-li .show-number-span {
     width: 20px;
     height: 20px;
